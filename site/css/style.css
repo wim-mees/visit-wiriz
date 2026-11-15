@@ -202,10 +202,6 @@ button { font: inherit; }
 /* Scherpstellen bij het laden: start vaag en iets ingezoomd, wordt zacht scherp */
 .js .hero__bg { filter: blur(20px); transform: scale(1.08); transition: filter 2s cubic-bezier(.25, .1, .25, 1), transform 3.2s var(--ease); will-change: filter, transform; }
 .js .hero__bg.is-loaded { filter: blur(0); transform: scale(1); }
-/* Welkomsttekst rechtstreeks op de foto, onderaan links, wit. Een donker verloop (--text, #042221) onderaan
-   houdt de tekst leesbaar op elk deel van het noorderlicht: in de tekstzone minstens 70% dekking (wit haalt > 4,5:1). */
-.hero__media::after { content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(to top, rgba(4, 34, 33, .85) 0%, rgba(4, 34, 33, .7) 40%, rgba(4, 34, 33, 0) 75%); }
 .hero__card {
   align-self: end; justify-self: start; position: relative;
   width: min(560px, calc(100% - 2 * var(--gutter)));
@@ -224,6 +220,52 @@ button { font: inherit; }
    main.js zet de uitsnede (--hi-*) per scrollpositie. Zonder js: meteen volle breedte. */
 .hero__media { min-height: 88svh;
   clip-path: inset(var(--hi-t, 0px) var(--hi-x, 0px) var(--hi-b, 0px) var(--hi-x, 0px) round var(--hi-r, 0px)); }
+
+/* Krimpende foto (Onze omgeving): het omgekeerde van de welkomstfoto. Start op volle schermbreedte en krimpt
+   bij het scrollen tot 48px breder dan de inhoud, met afgeronde hoeken en wat lucht erboven.
+   main.js zet de uitsnede (--sh-*) per scrollpositie. Zonder js: volle breedte. Titel en eerste alinea staan
+   wit op de foto, met hetzelfde donkere verloop als de welkomstfoto (wit haalt > 4,5:1). */
+.section--flush-top { padding-top: 0; }
+.shrink-hero { display: grid; margin-bottom: 64px; }
+.shrink-hero > * { grid-area: 1 / 1; }
+.shrink-hero__media { position: relative; margin: 0; overflow: hidden; min-height: max(520px, 80svh); background: var(--brand-950);
+  clip-path: inset(var(--sh-t, 0px) var(--sh-x, 0px) 0px var(--sh-x, 0px) round var(--sh-r, 0px)); }
+.shrink-hero__media img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.shrink-hero__card {
+  align-self: end; justify-self: start; position: relative;
+  width: min(560px, calc(100% - 2 * var(--gutter)));
+  margin: 0 var(--gutter) 64px; margin-left: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter)));
+  color: var(--white);
+}
+.shrink-hero__card .section__title { margin-bottom: 20px; color: var(--white); }
+.shrink-hero__card p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--white); }
+@media (max-width: 768px) {
+  .shrink-hero { margin-bottom: 48px; }
+  .shrink-hero__media { min-height: max(480px, 80svh); }
+  .shrink-hero__card { width: auto; margin: 0 40px 48px; }   /* zoals de welkomsttekst op mobiel */
+}
+
+/* Tekst op een foto (welkomstfoto en Onze omgeving): een donkere container met blur linksonder, in plaats van
+   een verloop over de hele foto. Achtergrond --text (#042221) op 65% dekking: wit haalt ook boven het lichtste
+   deel van de foto meer dan 5:1 (WCAG AA). Zonder backdrop-filter: 85% dekking.
+   De container start op de linkerrand van de inhoud; de foto loopt daar 48px voorbij, dus overal 48px lucht. */
+.hero__card, .shrink-hero__card {
+  width: fit-content; max-width: min(640px, calc(100% - 2 * var(--gutter)));   /* zo breed als de tekst */
+  padding: 32px 40px; border-radius: var(--radius-media);
+  background: rgba(4, 34, 33, .65);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .hero__card, .shrink-hero__card { background: rgba(4, 34, 33, .85); }
+}
+.hero__card { margin-bottom: 72px; }          /* 24px kader + 48px */
+.shrink-hero__card { margin-bottom: 48px; }
+.shrink-hero__card .section__title { margin-bottom: 12px; }
+@media (max-width: 768px) {
+  .hero__card, .shrink-hero__card { width: auto; max-width: none; padding: 24px; }
+  .hero__card { margin: 0 32px 40px; }        /* foto-kader 16px + 16px lucht; onderaan 24px kader + 16px */
+  .shrink-hero__card { margin: 0 32px 16px; }
+}
 
 /* ------------------------------------------------------------------ Sections */
 .section { padding-block: 96px; isolation: isolate; overflow: clip; }  /* wolken blijven binnen hun sectie */
@@ -532,7 +574,6 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
   .section { padding-block: 64px; }
   .section__title { font-size: var(--display-sm); line-height: 1.27; letter-spacing: 0; }
   .hero__title { font-size: var(--display-md); line-height: 1.22; }  /* mobiel: 36px, nog altijd groter dan h2 (30px) */
-  .hero__card { width: auto; margin: 0 40px 64px; }   /* mobiel: 16px kader + 24px; onderaan 24px kader + 40px */
   .section__header { margin-bottom: 40px; }
   .prose--center { margin: 48px auto 32px; }
   .grid--2, .grid--3 { grid-template-columns: 1fr; }
@@ -561,19 +602,31 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
 .card__title .badge { font-family: var(--font-body); }
 
 /* ------------------------------------------------------------------ Gradientwolk achter een foto
-   Een paar zachte kleurvlekken (noorderlichtkleuren), sterk vervaagd en groter dan de foto.
+   Zoals steep.app: een grote, zachte kleurgloed (noorderlichtkleuren) met een fijne korrel erover.
+   ::before = de gloed: een paar kleurvlekken, sterk vervaagd en ruim groter dan de foto.
+   ::after  = de korrel: zwart-witte ruis (svg feTurbulence) in mengmodus 'overlay'. Op wit is overlay onzichtbaar,
+   dus de korrel verschijnt alleen in de gloed; een radiaal masker laat hij zacht uitlopen.
    main.js kiest bij elke paginaload willekeurige posities, zodat de wolk telkens anders is. */
 .cloud { position: relative; margin: 0; }
+.cloud::before, .cloud::after {
+  content: ""; position: absolute; inset: -32% -28%; z-index: -1; pointer-events: none;
+  translate: 0 var(--cloud-shift, 0px);   /* parallax, gezet door main.js */
+}
 .cloud::before {
-  content: ""; position: absolute; inset: -16% -14%; z-index: -1; pointer-events: none;
   background:
     radial-gradient(48% 52% at var(--c1x, 20%) var(--c1y, 25%), rgba(111, 213, 146, 1), transparent 72%),
     radial-gradient(52% 48% at var(--c2x, 80%) var(--c2y, 35%), rgba(215, 251, 216, .95), transparent 72%),
     radial-gradient(50% 50% at var(--c3x, 40%) var(--c3y, 80%), rgba(36, 135, 134, .95), transparent 72%),
     radial-gradient(42% 42% at var(--c4x, 75%) var(--c4y, 78%), rgba(215, 251, 216, .9), transparent 72%);
-  filter: blur(64px) saturate(1.3);
-  opacity: .3;   /* wolk aan 30% */
-  translate: 0 var(--cloud-shift, 0px);   /* parallax, gezet door main.js */
+  filter: blur(96px) saturate(1.3);
+  opacity: .4;
+}
+.cloud::after {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.91' numOctaves='2' seed='10' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='discrete' tableValues='0 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: overlay; opacity: .5;
+  -webkit-mask-image: radial-gradient(closest-side, #000 55%, transparent);
+          mask-image: radial-gradient(closest-side, #000 55%, transparent);
 }
 .cloud > img { position: relative; }
 /* Geen eindeloze beweging meer (WCAG 2.2.2): de wolk schuift alleen mee als je scrolt. */
