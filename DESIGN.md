@@ -79,7 +79,7 @@ Fotokaarten krijgen bij hover een donkerdere rand en schuiven 2px omhoog.
 
 ## Componenten
 
-- **Menu:** vast bovenaan, wit 72% met blur (16px). Items: Figtree 600, padding 8/36px, 4px ertussen. Actief item: wit 80%. Een fijn randje alleen voor wie "meer contrast" of een hoog-contrastmodus gebruikt. Sleep/Shop/Eat openen meteen het juiste tabblad. Op mobiel schuift de rij horizontaal en schuift het actieve item in beeld.
+- **Menu:** vast bovenaan, wit 72% met blur (16px). Items in het Nederlands (Reis, Natuur, Omgeving, Slapen, Winkelen, Eten); bij hover of toetsenbordfocus verschijnt het Zweedse woord (Resa, Natur, Området, Sova, Handla, Äta) als taalweetje, `lang="sv"` en verborgen voor schermlezers; de knop is zo breed als het langste woord. Figtree 600, padding 8/36px, 4px ertussen. Actief item: wit 80%. Een fijn randje alleen voor wie "meer contrast" of een hoog-contrastmodus gebruikt. Slapen/Winkelen/Eten openen meteen het juiste tabblad. Op mobiel schuift de rij horizontaal en schuift het actieve item in beeld.
 - **Links in lopende tekst:** witte badge (6px), niet vet, padding 3/10px, met een pijltje rechts; geen onderlijn. Externe links krijgen de verborgen tekst "(opent in nieuw venster)".
 - **Knoppen:** secundaire knop (wit, rand) met pijltje voor externe links, bv. "Officiële website ↗".
 - **Inline icoon (praktische zaken):** icoonvak 64px in `--brand-50`, icoon 24px, beslaat precies 3 tekstregels, 16px rechts en onder.
