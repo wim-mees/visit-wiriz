@@ -219,16 +219,13 @@ button { font: inherit; }
    zodat het volgende blok al piept. */
 .hero__media { min-height: 88svh; }
 
-/* Krimpende foto (Onze omgeving): het omgekeerde van de welkomstfoto. Start op volle schermbreedte en krimpt
-   bij het scrollen tot 48px breder dan de inhoud, met afgeronde hoeken en wat lucht erboven.
-   main.js zet de uitsnede (--sh-*) per scrollpositie. Zonder js: volle breedte. Titel en eerste alinea staan
-   wit op de foto, met hetzelfde donkere verloop als de welkomstfoto (wit haalt > 4,5:1). */
+/* Foto bij Onze omgeving: volle schermbreedte, zonder scrolleffect. Hoogte begrensd (70% schermhoogte,
+   tussen 420 en 640px); de foto wordt bijgesneden (object-fit: cover). Titel en eerste alinea in wit glas erop. */
 .section--flush-top { padding-top: 0; }
 .shrink-hero { display: grid; margin-bottom: 64px; }
 .shrink-hero > * { grid-area: 1 / 1; }
-.shrink-hero__media { position: relative; margin: 0; overflow: hidden; min-height: max(520px, 80svh); background: var(--brand-950);
-  clip-path: inset(var(--sh-t, 0px) var(--sh-x, 0px) 0px var(--sh-x, 0px) round var(--sh-r, 0px)); }
-.shrink-hero__media img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.shrink-hero__media { position: relative; margin: 0; overflow: hidden; height: clamp(420px, 70svh, 640px); background: var(--brand-950); }
+.shrink-hero__media img { position: absolute; top: -15%; left: 0; display: block; width: 100%; height: 130%; object-fit: cover; }   /* ruimte voor de parallax (main.js) */
 .shrink-hero__card {
   align-self: end; justify-self: start; position: relative;
   width: min(560px, calc(100% - 2 * var(--gutter)));
@@ -239,7 +236,7 @@ button { font: inherit; }
 .shrink-hero__card p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--white); }
 @media (max-width: 768px) {
   .shrink-hero { margin-bottom: 48px; }
-  .shrink-hero__media { min-height: max(480px, 80svh); }
+  .shrink-hero__media { height: clamp(360px, 60svh, 520px); }
   .shrink-hero__card { width: auto; margin: 0 40px 48px; }   /* zoals de welkomsttekst op mobiel */
 }
 
@@ -269,7 +266,7 @@ button { font: inherit; }
 @media (max-width: 768px) {
   .hero__card, .shrink-hero__card { width: auto; max-width: none; padding: 24px; }
   .hero__card { margin: 0 var(--gutter) 24px; }
-  .shrink-hero__card { margin: 0 32px 16px; }
+  .shrink-hero__card { margin: 0 var(--gutter) 24px; }
 }
 
 /* ------------------------------------------------------------------ Sections */
@@ -277,6 +274,7 @@ button { font: inherit; }
 .section--tinted { background: var(--bg-secondary); }
 /* Tekstbreedte zoals de e-learning landingspagina: tekstblokken en sectiekoppen max. 46ch, links uitgelijnd */
 main :where(p) { max-width: 46ch; }
+.card p { max-width: none; }   /* in kaarten (routes, tips, regio's) vult de tekst de volle breedte */
 .section__header { max-width: 46ch; margin: 0 0 64px; }
 .section__title {
   font-size: var(--display-md); line-height: 1.22; letter-spacing: -0.72px;
@@ -892,10 +890,10 @@ p a.link:hover { background: var(--gray-100); text-decoration: none; }
 .route-map--big .map-tag[data-show="always"],
 .route-map--big:not([data-active]) .map-tag[data-show="default"],
 .route-map--big[data-active] .map-tag[data-show="active"],
-.route-map--big[data-active="0"] .map-tag[data-show="0"],
-.route-map--big[data-active="1"] .map-tag[data-show="1"],
-.route-map--big[data-active="2"] .map-tag[data-show="2"],
-.route-map--big[data-active="3"] .map-tag[data-show="3"] { opacity: 1; }
+.route-map--big[data-active="0"] .map-tag[data-show~="0"],
+.route-map--big[data-active="1"] .map-tag[data-show~="1"],
+.route-map--big[data-active="2"] .map-tag[data-show~="2"],
+.route-map--big[data-active="3"] .map-tag[data-show~="3"] { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .route-map--big .map-tag { transition: none; } }
 
 /* ------------------------------------------------------------------ Drie regio's

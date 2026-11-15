@@ -23,33 +23,23 @@
     parallax();
   }
 
-  /* Krimpende foto (Onze omgeving): het omgekeerde van de welkomstfoto. Volle breedte zolang de foto onderaan
-     in beeld komt; krimpt terwijl de bovenkant van 60% van het scherm tot net onder het menu schuift.
-     Eindstand: 48px breder dan de inhoud, afgeronde hoeken (24px), 48px lucht erboven (mobiel 24px).
-     'Minder beweging': meteen de eindstand. */
-  const shrinkMedia = document.querySelector('.shrink-hero__media');
-  if (shrinkMedia) {
-    let tickingShrink = false;
-    const shrink = () => {
-      tickingShrink = false;
-      const box = document.querySelector('.site-nav .container') || document.querySelector('.container');
-      const pad = parseFloat(getComputedStyle(box).paddingLeft) || 0;
-      const edge = box.getBoundingClientRect().left + pad;
-      const x1 = Math.max(16, edge - 48);
-      const t1 = window.innerWidth <= 768 ? 24 : 48;
-      const navH = document.querySelector('.site-nav')?.offsetHeight || 64;
-      const vp = window.innerHeight, start = vp * 0.6, end = navH + 16;
-      let p = calm.matches ? 1 : (start - shrinkMedia.getBoundingClientRect().top) / Math.max(1, start - end);
-      p = Math.min(1, Math.max(0, p));
-      p = p * p * (3 - 2 * p);                                            /* zacht vertrekken en landen */
-      shrinkMedia.style.setProperty('--sh-x', (x1 * p).toFixed(1) + 'px');
-      shrinkMedia.style.setProperty('--sh-t', (t1 * p).toFixed(1) + 'px');
-      shrinkMedia.style.setProperty('--sh-r', (24 * p).toFixed(1) + 'px');
+  /* Discrete parallax op de foto bij Onze omgeving: de foto (30% hoger dan het vak) schuift trager mee
+     dan de pagina, maximaal 15% van de vakhoogte. 'Minder beweging': geen parallax. */
+  const omgMedia = document.querySelector('.shrink-hero__media');
+  const omgImg = omgMedia?.querySelector('img');
+  if (omgImg && !calm.matches) {
+    let tickingOmg = false;
+    const drift = () => {
+      tickingOmg = false;
+      const r = omgMedia.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      const max = r.height * 0.15;
+      const off = (r.top + r.height / 2 - window.innerHeight / 2) * -0.1;
+      omgImg.style.translate = '0 ' + Math.max(-max, Math.min(max, off)).toFixed(1) + 'px';
     };
-    window.addEventListener('scroll', () => { if (!tickingShrink) { tickingShrink = true; requestAnimationFrame(shrink); } }, { passive: true });
-    window.addEventListener('resize', shrink);
-    calm.addEventListener?.('change', shrink);
-    shrink();
+    window.addEventListener('scroll', () => { if (!tickingOmg) { tickingOmg = true; requestAnimationFrame(drift); } }, { passive: true });
+    window.addEventListener('resize', drift);
+    drift();
   }
 
   /* Gradientwolk: willekeurige posities per foto, bij elke paginaload anders */
