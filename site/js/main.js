@@ -179,12 +179,21 @@
   }));
   tabs.forEach((t) => t.addEventListener('click', markNav));
   const navSections = [...new Set(navLinks.map((a) => a.hash))].map((h) => document.querySelector(h)).filter(Boolean);
-  if ('IntersectionObserver' in window && navSections.length) {
-    const spy = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) currentSection = e.target.id; else if (currentSection === e.target.id) currentSection = null; });
-      markNav();
-    }, { rootMargin: '-40% 0px -55% 0px' });
-    navSections.forEach((s) => spy.observe(s));
+  /* Huidige sectie = de sectie die over een lijn op 40% van de schermhoogte ligt. Rekent bij elke scroll
+     (één keer per frame) in plaats van met IntersectionObserver: die negeert zijn marges in een iframe
+     (zoals de preview), waardoor soms het verkeerde menu-item actief bleef. */
+  if (navSections.length) {
+    let ticking = false;
+    const spy = () => {
+      ticking = false;
+      const line = window.innerHeight * 0.4;
+      const hit = navSections.find((sec) => { const r = sec.getBoundingClientRect(); return r.top <= line && r.bottom > line; });
+      const id = hit ? hit.id : null;
+      if (id !== currentSection) { currentSection = id; markNav(); }
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+    window.addEventListener('resize', spy);
+    spy();
   }
 
   /* Regio's: "Onze tips" klapt een paneel open; één tegelijk open */
@@ -197,6 +206,18 @@
       b.closest('.region-card').classList.toggle('is-open', on);
       document.getElementById(b.getAttribute('aria-controls')).classList.toggle('is-open', on);
     });
+    /* Na het openklappen (0,35s, ook het dichtklappen van een ander blok) naar de bovenkant van het blok scrollen,
+       zodat het open blok volledig in beeld komt. scroll-padding houdt rekening met het menu. */
+    if (open) {
+      const card = btn.closest('.region-card');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      setTimeout(() => {
+        /* Enkel scrollen als de bovenkant van het blok niet (goed) zichtbaar is: verstopt onder het menu of onderaan buiten beeld */
+        const top = card.getBoundingClientRect().top;
+        const navH = document.querySelector('.site-nav')?.offsetHeight || 0;
+        if (top < navH || top > window.innerHeight - 96) card.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      }, reduce ? 0 : 360);
+    }
   }));
 
   /* Route-verkenner: één optie tegelijk open; de kaart toont de gekozen route (of alle routes als niets open staat) */

@@ -2,7 +2,7 @@
 
 De stijlafspraken van deze site, in gewone taal. Elke wijziging aan de site volgt deze afspraken.
 De waarden staan als tokens in `site/css/style.css` (blok `:root`). Wijzig je hier iets, pas dan ook de css aan (en omgekeerd).
-Laatst bijgewerkt: 15 november 2026.
+Laatst bijgewerkt: 15 november 2026 (avond).
 
 **Basis:** Untitled UI. Merkkleur "Moss" (groen), neutraal "Gray".
 **Sfeer:** rustig, natuur, het hoge Noorden. Veel witruimte, zachte groene accenten, foto's en kaarten als grote blikvangers. Grotendeels plat: enkel witte containers krijgen een zachte schaduw (zie Schaduwen).
@@ -45,7 +45,7 @@ Kaartkleuren (in de svg's): water #77B8C9 / #BCDBE4, buurlanden (Noorwegen) #DAE
 | Kleine lettertjes (opmerking onder de route-opties) | | 0.875em = 14px |
 
 Regel: de hoofdtitel is altijd de grootste titel op de pagina.
-Tekstblokken en sectiekoppen zijn max. 46ch breed en links uitgelijnd. Uitzondering: een korte zin die op één lijn moet (de opmerking onder de route-opties).
+Tekstblokken en sectiekoppen zijn max. 46ch breed en links uitgelijnd. Uitzonderingen: een korte zin die op één lijn moet (de opmerking onder de route-opties) en de regiotekst in een open regio (69ch, naast de knop "Officiële website").
 
 ## Spacing
 
@@ -79,16 +79,18 @@ Fotokaarten krijgen bij hover een donkerdere rand en schuiven 2px omhoog.
 
 ## Componenten
 
-- **Menu:** vast bovenaan, wit 72% met blur (16px). Items in het Nederlands (Reis, Natuur, Omgeving, Slapen, Winkelen, Eten); bij hover of toetsenbordfocus verschijnt het Zweedse woord (Resa, Natur, Området, Sova, Handla, Äta) als taalweetje, `lang="sv"` en verborgen voor schermlezers; de knop is zo breed als het langste woord. Figtree 600, padding 8/36px, 4px ertussen. Actief item: wit 80%. Een fijn randje alleen voor wie "meer contrast" of een hoog-contrastmodus gebruikt. Slapen/Winkelen/Eten openen meteen het juiste tabblad. Op mobiel schuift de rij horizontaal en schuift het actieve item in beeld.
+- **Menu:** vast bovenaan, wit 72% met blur (16px). Items in het Nederlands (Reis, Natuur, Omgeving, Slapen, Winkelen, Eten); bij hover of toetsenbordfocus verschijnt het Zweedse woord (Resa, Natur, Området, Sova, Handla, Äta) als taalweetje, `lang="sv"` en verborgen voor schermlezers; de knop is zo breed als het langste woord. Figtree 600, padding 8/36px, 4px ertussen. Actief item: wit 80% (bewuste keuze van Wim: op een witte sectie is die markering nauwelijks zichtbaar en haalt ze geen 3:1, WCAG 1.4.11; schermlezers krijgen wel `aria-current`). Het actieve item volgt de sectie die op 40% van de schermhoogte ligt. Een fijn randje alleen voor wie "meer contrast" of een hoog-contrastmodus gebruikt. Slapen/Winkelen/Eten openen meteen het juiste tabblad. Op mobiel schuift de rij horizontaal en schuift het actieve item in beeld.
 - **Links in lopende tekst:** witte badge (6px), niet vet, padding 3/10px, met een pijltje rechts; geen onderlijn. Externe links krijgen de verborgen tekst "(opent in nieuw venster)".
 - **Knoppen:** secundaire knop (wit, rand) met pijltje voor externe links, bv. "Officiële website ↗".
+- **Eerst en vooral:** foto en tekst elk 50% (96px ertussen); de foto blijft staan tijdens het scrollen. Mobiel onder elkaar.
 - **Inline icoon (praktische zaken):** icoonvak 64px in `--brand-50`, icoon 24px, beslaat precies 3 tekstregels, 16px rechts en onder.
 - **Route-verkenner:** één kaart links (blijft staan tijdens scrollen), rechts de opties. Optie: icoonvak 48px (`--brand-50`) met één icoon dat bij de titel past, titel Fraunces 600, tijdbadge met klokje (14px, gray-500, 12px tussenruimte), pijltje. Er staat altijd maar één optie open; hij groeit vloeiend open. Hover en open: rand `--brand-600` en `--shadow-brand`, achtergrond blijft wit. Zonder keuze toont de kaart de weg Stockholm–Wim & Iris met het label "Hoe wil je reizen?".
-- **Regio-blokken:** drie compacte klikbare knoppen (Åre, Hoge kusten, wildernisroute) in de opmaak van de route-opties: icoonvak 48px (`--brand-50`), titel Fraunces 600 (1.2em, even groot als de route-opties), pijltje. Eén tegelijk open; hover en open: rand `--brand-600` en `--shadow-brand`. Het open stuk verschijnt onder de rij (mobiel: onder het blok) met:
-  - een groene container (zoals de callout) met de regiotekst links en "Officiële website ↗" rechts bovenaan (witte tertiaire knop; mobiel eronder);
-  - de kop "Onze tips" met lampje, een korte inleiding en daaronder de tipblokken (48px lager).
-- **Tipblokken:** foto 3:2 die bij hover inzoomt binnen een eigen kader; titel, tekst en onderaan een tertiaire knop: "Meer info ↗" (website) of "Coördinaten" (Google Maps-link, opent de kaart-app). De eerste knop maakt de hele kaart klikbaar. Nog geen tips: gestippeld vak "Tip n volgt binnenkort".
-- **Tertiaire knop:** lichtgrijs vlak (`--gray-100`, hover `--gray-200`), op groen wit; Figtree 600, pijltje 16px.
+- **Regio's:** zelfde component als de route-opties: drie kaarten onder elkaar (16px ertussen), de kop is de knop (icoonvak 48px `--brand-50`, titel Fraunces 600 1.2em, pijltje). De inhoud klapt open in de kaart; één tegelijk open; hover en open: rand `--brand-600` en `--shadow-brand`. Bij openen scrolt de pagina enkel naar de bovenkant van de kaart als die verstopt zit onder het menu of onderaan buiten beeld valt. In de open kaart (rondom 24px, mobiel 20px):
+  - regiotekst (uitzondering: max. 69ch) met "Officiële website ↗" rechts (mobiel eronder), daaronder een fijne grijze lijn over de volle breedte;
+  - kop "Onze tips" met lampje in een lichtgroen vak (40px), zonder inleiding;
+  - elke tip een rij: foto 240px (3:2, hoeken 8px), 40px ertussen, titel Fraunces + tekst, rechts "Meer info ↗" (of "Coördinaten": Google Maps-link). Rijen gescheiden door fijne grijze lijnen over de volle breedte (geen lijn boven de eerste). Mobiel: foto over de volle breedte, knop onder de tekst.
+  - Nog geen tips: één gestippeld fotovak met een uitnodigende tekst om later terug te kijken.
+- **Tertiaire knop:** lichtgrijs vlak (`--gray-100`, hover `--gray-200`); Figtree 600, pijltje 16px.
 - **Kaarten (landkaarten):**
   - Pins: Untitled UI marker-pin, wit met een rand in `--brand-800` (1.5px, schaalt niet mee). Jullie huis: grotere pin met een gevuld huisje.
   - Lijnen in `--text`: trein doorlopend, auto streepjes, vliegtuig puntjes. Streepjes en puntjes zijn zo verdeeld dat elk uiteinde precies in de punt van een pin valt.
@@ -101,7 +103,8 @@ Fotokaarten krijgen bij hover een donkerdere rand en schuiven 2px omhoog.
 
 ## Beweging
 
-- Duur: 150–400ms. De reveal bij het scrollen duurt 0,4s; een route-optie klapt open in 0,35s.
+- Duur: 150–400ms. De reveal bij het scrollen duurt 0,4s; een route-optie of regio klapt open in 0,35s.
+- Eén verschijn-animatie voor alle blokken (`.reveal`: 16px omhoog + infaden). Elk blok dat binnenkomt bij het scrollen gebruikt ze; ze heeft voorrang op hover-overgangen van een blok.
 - Gekoppeld aan scrollen (geen eindeloze animaties): inzoomen van de grote kaart en de regiokaart, het autootje, het label "Hoe wil je reizen?" dat licht over de weg schuift.
 - Uitzondering (bewuste sfeer): de welkomstfoto stelt eenmalig scherp bij het laden (2–3s).
 - Met "beperk beweging" aan staat alles stil: de kaarten tonen meteen hun eindbeeld, het label staat in het midden.
