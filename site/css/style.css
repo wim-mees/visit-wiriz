@@ -1,7 +1,7 @@
 /* ==========================================================================
    Visit WiRiZ — gebouwd op Untitled UI design tokens
    Brand: Untitled UI "Moss" · Neutraal: Untitled UI "Gray"
-   Lettergroottes in em, interlinie 1.7, spacing in px.
+   Lettergroottes in em, interlinie tekst 1.7 en titels 1.3 (zonder eenheid, schaalt mee), spacing in px.
    ========================================================================== */
 
 :root {
@@ -67,20 +67,23 @@
   --fs-body: 1em;      /* 16px   — alle bodytekst */
   --lh-body: 1.7;
   --fs-title: 1.2em;   /* 19.2px — alle titels */
-  --lh-title: 1.7;
+  --lh-title: 1.3;
+  --fs-subtitle: 1.5em; /* 24px   — tussentitels (h3) zoals Bezienswaardigheden */
 
   /* --- Lettertypes --- */
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-title: "Fraunces", Georgia, serif;
 
   /* --- Radius --- */
-  --radius-media: 24px;      /* foto's, kaarten, blokken met beeld */
-  --radius-container: 12px;  /* containers zonder beeld: groene blokken, hero-kaart, tabbalk */
+  --radius-media: 24px;      /* foto's, kaarten, blokken met beeld, hero-kaart */
+  --radius-container: 12px;  /* containers zonder beeld: groene blokken, tabbalk */
   --radius-control: 8px;     /* knoppen, tabs, icoonvlakken (tabbalk 12 = tab 8 + padding 4) */
   --radius-badge: 6px;       /* badges, labels, focusring */
 
   /* --- Shadows --- */
-  /* Geen schaduw-tokens: de stijl is plat (zie DESIGN.md). Focus gebruikt --focus-ring. */
+  /* Witte containers (kaarten, bezienswaardigheden, route-opties) krijgen Untitled UI shadow-lg (15 november 2026). Focus gebruikt --focus-ring. */
+  --shadow-lg: 0 12px 16px -4px rgba(16, 24, 40, .08), 0 4px 6px -2px rgba(16, 24, 40, .03);
+  --shadow-brand: 0 24px 96px -8px rgba(186, 212, 151, .2), 0 8px 40px -4px rgba(186, 212, 151, .2);   /* #BAD497 op 20%: hover en open route-optie */
 
   --container: 1280px;
   --gutter: clamp(20px, 7vw, 96px);   /* gelijke ruimte links en rechts, overal */
@@ -93,11 +96,11 @@
 
 /* ------------------------------------------------------------------ Base */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 16px; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 16px); -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 100%;   /* volgt de lettergrootte die de bezoeker in de browser instelt (standaard 16px) */
   line-height: var(--lh-body);
   color: var(--text-tertiary);
   background: var(--bg-primary);
@@ -202,9 +205,9 @@ button { font: inherit; }
 .hero__card {
   align-self: center; justify-self: start;
   width: min(560px, calc(100% - 2 * var(--gutter)));
-  margin: 96px var(--gutter); margin-left: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter)));
+  margin: calc(var(--nav-h) + 96px) var(--gutter) 96px; margin-left: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter)));  /* boven: menu + 96px, zodat de zichtbare ruimte boven en onder gelijk is */
   padding: 48px 80px; display: grid; gap: 12px; justify-items: start;
-  border-radius: var(--radius-container);
+  border-radius: var(--radius-media);   /* ligt op de foto: zelfde hoeken als beeld */
   background: rgba(255, 255, 255, .72);
   -webkit-backdrop-filter: saturate(180%) blur(8px); backdrop-filter: saturate(180%) blur(8px);
   box-shadow: none;
@@ -212,7 +215,7 @@ button { font: inherit; }
 }
 .hero__flag { width: 48px; height: 48px; margin-bottom: 12px; }
 .hero__title {
-  font-size: var(--fs-hero); line-height: 56px; letter-spacing: -0.96px;
+  font-size: var(--fs-hero); line-height: 1.17; letter-spacing: -0.96px;
   font-weight: 600; color: var(--text-primary); text-wrap: balance;
 }
 .hero__sub { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--text-tertiary); }
@@ -225,7 +228,7 @@ button { font: inherit; }
 main :where(p) { max-width: 46ch; }
 .section__header { max-width: 46ch; margin: 0 0 64px; }
 .section__title {
-  font-size: var(--display-md); line-height: 44px; letter-spacing: -0.72px;
+  font-size: var(--display-md); line-height: 1.22; letter-spacing: -0.72px;
   font-weight: 600; color: var(--text-primary); text-wrap: balance;
 }
 .section__header .lead { margin-top: 20px; }
@@ -234,13 +237,13 @@ main :where(p) { max-width: 46ch; }
 .prose p { font-size: var(--fs-body); line-height: var(--lh-body); }
 .prose p + p { margin-top: 16px; }
 .prose--center { margin: 64px 0 48px; }
-.sub-title { font-size: var(--fs-title); line-height: var(--lh-title); font-weight: 600; color: var(--text-primary); }
+.sub-title { font-size: var(--fs-subtitle); line-height: var(--lh-title); font-weight: 600; color: var(--text-primary); }
 .closing-line { margin-top: 48px; font-size: var(--fs-body); line-height: var(--lh-body); font-weight: 500; color: var(--text-secondary); }
 
 /* ------------------------------------------------------------------ Split layouts */
 .split { display: grid; gap: 64px; align-items: center; }
 .split--media-left { grid-template-columns: minmax(0, 1fr) minmax(0, 46ch); align-items: start; column-gap: 96px; }  /* ruimte voor de hangende iconen */
-.split--media-left .split__media { position: sticky; top: 32px; }
+.split--media-left .split__media { position: sticky; top: calc(var(--nav-h) + 32px); }
 .split--media-left .split__body, .split--map .split__body { padding-top: 64px; }  /* extra ruimte boven 'Eerst en vooral', foto blijft staan */
 .split--media-right { grid-template-columns: minmax(0, 46ch) minmax(0, 1fr); }
 .split--map { grid-template-columns: minmax(0, 46ch) minmax(0, 1fr); }
@@ -254,21 +257,44 @@ main :where(p) { max-width: 46ch; }
 /* Even hoog als de tekst ernaast; de kaart wordt bijgesneden met "Wim & Iris" in het midden */
 .map-plain img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 48%; border-radius: var(--radius-media); }
 .photo--landscape { aspect-ratio: 4 / 3; }
+/* Labels op de kaart van Zweden (afstand): echte tekst (1em, vet, tekstfont) in een witte badge (6px).
+   main.js zet ze op het juiste punt van de kaart. --end = rechts uitgelijnd, --center = gecentreerd op het punt. */
+.map-plain { position: relative; overflow: hidden; border-radius: var(--radius-media); isolation: isolate; }   /* het inzoomen blijft binnen de hoeken */
+.map-plain img { transform-origin: 0 0; will-change: transform; }
+.map-label {
+  position: absolute; left: 0; top: 0; visibility: hidden; pointer-events: none;
+  font-family: var(--font-body); font-size: var(--fs-body); font-weight: 700; line-height: 1.3; color: var(--text); white-space: nowrap;
+  padding: 2px 8px; border-radius: var(--radius-badge); background: var(--white); border: 1px solid var(--border-secondary);
+  transform: translate(var(--lx, 0px), var(--ly, 0px)) translate(var(--ax, 0%), -50%);
+}
+.map-label--center { --ax: -50%; }
+.map-label--end { --ax: -100%; }
+/* Autootje dat tijdens het scrollen van Stockholm naar Wim & Iris rijdt (main.js). Grootte schaalt mee met de kaart. */
+.map-route { position: absolute; width: 0; height: 0; overflow: hidden; }
+.map-car {
+  position: absolute; left: 0; top: 0; width: var(--cs, 24px); height: var(--cs, 24px);
+  visibility: hidden; pointer-events: none;
+  transform: translate(var(--cx, 0px), var(--cy, 0px)) translate(-50%, -50%);
+}
+.map-car.is-placed { visibility: visible; }
+.map-car { z-index: 1; } .map-label { z-index: 2; }   /* het autootje rijdt onder het label door */
+.map-car svg { width: 100%; height: 100%; fill: none; stroke: var(--brand-800); stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; }
+.map-car circle, .map-car .map-car__body { fill: var(--white); }
+.map-car .map-car__body { stroke: none; }
+.map-label.is-placed { visibility: visible; }
 
-.eyebrow-title { margin: 32px 0 20px; font-size: var(--fs-title); line-height: var(--lh-title); font-weight: 600; color: var(--text-primary); }
+.eyebrow-title { margin: 32px 0 20px; font-size: var(--fs-subtitle); line-height: var(--lh-title); font-weight: 600; color: var(--text-primary); }
 
 /* Icoon met tekst eronder, zonder kader */
 .feature-list { display: grid; gap: 32px; }
-/* Icoon als 'initiaal': zwevend links, even hoog als de eerste twee regels */
+/* Inline initiaal (15 november 2026): het icoon staat in de eerste drie regels, zoals een initiaal in een boek, met een heel lichte groene achtergrond */
 .feature { display: flow-root; }
-.feature .featured-icon { float: left; margin: 4px 24px 4px 0; border: 0; box-shadow: none; color: var(--text);
-  background: var(--tint); }
+.feature .featured-icon { float: left; width: 64px; height: 64px; margin: 9px 16px 0 0; border: 0; box-shadow: none; color: var(--text);
+  background: var(--brand-50); }
+.feature .featured-icon .icon { width: 24px; height: 24px; }
+/* 3 regels = 81,6px. Icoon 9–73px: gecentreerd op de tekst van regel 1–3 (kapitaal 8px tot basislijn 73,6px).
+   Onder het icoon tot de kapitaal van regel 4 (89,6px) is ± 16px; rechts dus ook 16px. */
 .feature p { font-size: var(--fs-body); line-height: var(--lh-body); }
-/* Hangend initiaal (desktop): het icoon hangt links naast de tekstkolom, de tekst blijft uitgelijnd met de titel */
-@media (min-width: 1025px) {
-  .feature { position: relative; }
-  .feature .featured-icon { float: none; position: absolute; top: 4px; left: -72px; margin: 0; }  /* 48px icoon + 24px */
-}
 
 .note {
   margin-top: 48px; padding: 32px 40px; border-radius: var(--radius-container);
@@ -284,7 +310,6 @@ main :where(p) { max-width: 46ch; }
 }
 .callout p { font-size: var(--fs-body); line-height: var(--lh-body); }
 
-
 .map-card {
   display: grid; place-items: center;
   padding: 40px; border-radius: var(--radius-media);
@@ -298,7 +323,7 @@ main :where(p) { max-width: 46ch; }
 .card {
   position: relative;
   padding: 24px; border-radius: var(--radius-media);
-  background: var(--white); border: 1px solid var(--border-secondary); box-shadow: none;
+  background: var(--white); border: 1px solid var(--border-secondary); box-shadow: var(--shadow-lg);
   transition: box-shadow .2s var(--ease), transform .2s var(--ease), border-color .2s;
 }
 .card p { font-size: var(--fs-body); line-height: var(--lh-body); }
@@ -309,7 +334,7 @@ main :where(p) { max-width: 46ch; }
 
 .card--link, .card--link-inner, .card--media { cursor: pointer; }
 .card--link:hover, .card--link-inner:hover, .card--media:hover {
-  box-shadow: none; border-color: var(--gray-300); transform: translateY(-2px);
+  border-color: var(--gray-300); transform: translateY(-2px);
 }
 .card--link:hover .card__arrow, .card--link-inner:hover .card__arrow, .card--media:hover .card__arrow { color: var(--brand-600); transform: translate(2px, -2px); }
 .card--link-inner .card__title, .card--link .card__title { padding-right: 32px; }
@@ -317,30 +342,23 @@ main :where(p) { max-width: 46ch; }
 .card--link-inner .card__title { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 
 .card--media { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
-.card__img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--gray-100); transition: transform .3s var(--ease); }
+.card--media:hover { transform: none; }   /* de kaart zelf beweegt niet; enkel de foto zoomt */
+/* Foto in een eigen kader: het inzoomen blijft binnen de foto en loopt niet over de tekst */
+.card__media { overflow: hidden; flex-shrink: 0; }
+.card__img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; background: var(--gray-100); transition: transform .3s var(--ease); }
 .card--media:hover .card__img { transform: scale(1.04); }
 .card__body { padding: 24px; }
-.card--media .card__arrow {
-  top: 16px; right: 16px; width: 36px; height: 36px; padding: 8px;
-  border-radius: 50%; background: rgba(255, 255, 255, .9); color: var(--gray-700);
-  box-shadow: none;
-}
+.card--media .card__body { flex: 1; display: flex; flex-direction: column; }
+/* Knoppen onderaan de tekst, zoals "Officiële website": "Meer info" (website) of "Coördinaten" (kaart-app).
+   De eerste knop maakt de hele kaart klikbaar (stretched); extra knoppen liggen erboven. */
+.card__actions { margin-top: auto; padding-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; }
+.card__actions .btn .icon { width: 16px; height: 16px; }
+.card__actions .btn:not(.stretched) { position: relative; z-index: 1; }
+.card--media:hover .card__actions .btn.stretched { background: var(--gray-200); }
 
 .grid { display: grid; gap: 24px; }
 .grid--2 { grid-template-columns: repeat(2, 1fr); }
 .grid--3 { grid-template-columns: repeat(3, 1fr); }
-
-/* Regions */
-.regions { display: grid; grid-template-columns: 5fr 7fr; gap: 32px; align-items: stretch; }
-.regions__cards { display: grid; gap: 40px; align-content: center; }
-.card.region { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; text-decoration: none;
-  padding: 0; background: none; border: 0; box-shadow: none; border-radius: 0; transform: none; }
-.card.region:hover { box-shadow: none; transform: none; }
-.region .card__arrow { display: none; }
-.region:hover .card__title { text-decoration: underline; text-underline-offset: 3px; }
-.region__text { display: flex; flex-direction: column; gap: 4px; }
-.region__text .card__title { margin: 0; }
-.region__text > span { font-size: var(--fs-body); line-height: var(--lh-body); }
 
 /* Spots */
 .spots { margin-top: 64px; align-items: start; }
@@ -352,7 +370,7 @@ main :where(p) { max-width: 46ch; }
 .sights {
   margin-top: 64px; display: grid; grid-template-columns: 5fr 7fr; gap: 64px;
   padding: 48px; border-radius: var(--radius-container);
-  background: var(--white); border: 1px solid var(--border-secondary); box-shadow: none;
+  background: var(--white); border: 1px solid var(--border-secondary); box-shadow: var(--shadow-lg);
 }
 .sights__intro p { margin-top: 16px; font-size: var(--fs-body); line-height: var(--lh-body); }
 .sights__list { display: grid; gap: 0; counter-reset: none; }
@@ -495,8 +513,8 @@ main :where(p) { max-width: 46ch; }
   .winter__img { order: -1; height: auto; aspect-ratio: 16 / 9; min-height: 0; }
   .split--media-left .split__media { position: relative; top: auto; max-width: 560px; }
   .split--media-left .split__body, .split--map .split__body { padding-top: 0; }
-  .map-plain { height: auto; }
-  .map-plain img { height: auto; aspect-ratio: 4 / 5; max-height: 640px; }
+  .map-plain { height: auto; max-width: 480px; }
+  .map-plain img { height: auto; aspect-ratio: 328 / 500; }   /* hele kaart, niet bijgesneden */
   .split--media-right .split__media { order: -1; }
   .grid--3 { grid-template-columns: 1fr 1fr; }
   .sights { padding: 40px; gap: 32px; }
@@ -507,8 +525,8 @@ main :where(p) { max-width: 46ch; }
   .hero__media { min-height: 0; aspect-ratio: 4 / 3; }
   .hero__card { width: auto; margin: -48px var(--gutter) 0; padding: 40px 32px; }
   .section { padding-block: 64px; }
-  .section__title { font-size: var(--display-sm); line-height: 38px; letter-spacing: 0; }
-  .hero__title { font-size: var(--display-md); line-height: 44px; }  /* mobiel: 36px, nog altijd groter dan h2 (30px) */
+  .section__title { font-size: var(--display-sm); line-height: 1.27; letter-spacing: 0; }
+  .hero__title { font-size: var(--display-md); line-height: 1.22; }  /* mobiel: 36px, nog altijd groter dan h2 (30px) */
   .section__header { margin-bottom: 40px; }
   .prose--center { margin: 48px auto 32px; }
   .grid--2, .grid--3 { grid-template-columns: 1fr; }
@@ -552,7 +570,7 @@ main :where(p) { max-width: 46ch; }
   opacity: .3;   /* wolk aan 30% */
   translate: 0 var(--cloud-shift, 0px);   /* parallax, gezet door main.js */
 }
-.cloud > img { position: relative; border: 2px solid rgba(255, 255, 255, .5); }
+.cloud > img { position: relative; }
 /* Geen eindeloze beweging meer (WCAG 2.2.2): de wolk schuift alleen mee als je scrolt. */
 
 /* ------------------------------------------------------------------ Linkstijl (overal dezelfde)
@@ -584,8 +602,300 @@ a.link[target="_blank"]::after, .sight__title::after, .city__list a::after, .reg
 
 /* ------------------------------------------------------------------ Indrukwekkende natuur: kaart + regio's */
 .map-wide { margin: 0; }
+.map-wide picture { display: block; }   /* op mobiel een uitsnede met grotere labels */
 .map-wide img { display: block; width: 100%; height: auto; border-radius: var(--radius-media); }
-.regions-list { display: grid; grid-template-columns: repeat(2, minmax(0, 46ch)); column-gap: 96px; row-gap: 32px; margin-top: 64px; }
-.regions-list .card__title { margin: 0 0 4px; }
 .card__title a.link { font-weight: inherit; }
-@media (max-width: 768px) { .regions-list { grid-template-columns: 1fr; margin-top: 48px; } }
+
+/* ------------------------------------------------------------------ Vanuit Stockholm naar ons (routekaarten)
+   Elke kaart: minikaartje (inline svg op de gedeelde basiskaart), stappen met tijden en een korte beschrijving.
+   Lijnen: trein = volle lijn, auto = streepjes, vliegtuig = puntjes (zoals op de grote kaart). */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.travel { margin-top: 96px; }
+.travel__header { max-width: 46ch; }
+.travel__header p { margin-top: 12px; }
+.routes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 40px; align-items: start; }
+
+.card.route { padding: 0; overflow: hidden; }
+.route-map { position: relative; margin: 0; aspect-ratio: 4 / 5; background: var(--gray-100); overflow: hidden; }
+.route-map > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.route-map .map-label { visibility: visible; transform: translate(var(--ax, 0%), -50%); }
+
+.route-map__train { stroke: var(--text); stroke-width: .8; }
+.route-map__car   { stroke: var(--text); stroke-width: .7; stroke-dasharray: 1.8 1.4; stroke-linecap: round; }
+.route-map__plane { stroke: var(--text); stroke-width: 1; stroke-dasharray: 0 1.8; stroke-linecap: round; }
+.route-map__names text {
+  font-family: var(--font-title); font-weight: 700; font-size: 4.4px; fill: var(--text);   /* geen witte rand: de kaart is licht genoeg */
+}
+
+.route__body { padding: 32px; }
+.route__total { margin-top: 4px; }
+.route__steps { margin: 16px 0; }
+.route__step {
+  display: flex; align-items: flex-start; gap: 16px;
+  margin-inline: -32px; padding: 20px 32px; border-top: 1px solid var(--border-secondary);  /* lijnen over de volle kaartbreedte (route__body heeft 32px padding) */
+}
+.route__step:last-child { border-bottom: 1px solid var(--border-secondary); }
+.route__step .icon { margin-top: 3px; }
+.route__step .badge { margin-left: auto; margin-block: -3px; }  /* badge (33px) even hoog als een tekstregel (27px): ruimte boven en onder blijft gelijk */
+.route__step > span:not(.badge) { margin-right: 32px; }
+/* Klokje in de tijdbadge: 12px tussen klokje en tijd, 6px links */
+.route__step .badge { gap: 12px; padding-left: 6px; }
+.route__step .badge .icon { width: 14px; height: 14px; margin: 0; color: var(--gray-500); }
+
+@media (max-width: 1024px) {
+  .routes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 768px) {
+  .travel { margin-top: 64px; }
+  .routes { grid-template-columns: 1fr; }
+}
+
+/* ------------------------------------------------------------------ Links in lopende tekst als badge (test, 15 november 2026)
+   Geen onderlijn meer: een witte badge (6px) zonder rand, met het pijltje rechts. Zo blijven ze herkenbaar zonder kleur (WCAG 1.4.1).
+   Titels met een link (regio's, bezienswaardigheden) en de lijsten (restaurants, footer) houden hun gewone linkstijl. */
+p a.link {
+  text-decoration: none; font-weight: 400; color: var(--text);   /* niet vet, ook niet binnen <strong> */
+  padding: 3px 10px; border-radius: var(--radius-badge);
+  background: var(--white); border: 0;   /* geen rand nodig: op de groene/donkere vlakken valt de badge genoeg op */
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  transition: background-color .15s, border-color .15s;
+}
+p a.link:hover { background: var(--gray-100); text-decoration: none; }
+.winter p a.link { color: var(--white); background: rgba(255, 255, 255, .16); }
+.winter p a.link:hover { background: rgba(255, 255, 255, .26); color: var(--white); }
+
+/* Routes 2 × 2 (15 november 2026): liggende kaartjes bovenaan elke kaart; legende over de volle breedte eronder. */
+.routes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.route-map { aspect-ratio: 4 / 3; }
+@media (max-width: 768px) {
+  .routes { grid-template-columns: 1fr; }
+  .route-map { aspect-ratio: 1; }
+}
+
+/* ------------------------------------------------------------------ Route-verkenner (15 november 2026)
+   Eén kaart links (blijft staan tijdens scrollen), rechts de opties. Een optie klapt open met meer info
+   en de kaart toont dan enkel die route. Zonder JavaScript staan alle opties open en toont de kaart de weg. */
+.routes-explorer { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; align-items: start; margin-top: 40px; }
+.route-map--big { aspect-ratio: 4 / 5; border-radius: var(--radius-media); position: sticky; top: calc(var(--nav-h) + 32px); }
+.route-map--big .route-map__train { stroke-width: .5; }
+.route-map--big .route-map__car   { stroke-width: .45; }
+.route-map--big .route-map__plane { stroke-width: .65; }
+.route-map--big .route-map__names text { font-size: 3.1px; }
+/* Fraunces wisselt onder optische grootte 18 automatisch naar andere vormen van &, h, m, n en s.
+   Deze kaarttekst is heel klein (3,1px in svg-eenheden), dus zetten we de optische grootte vast op 19:
+   dezelfde vormen als de grote kaart en de titels. */
+.route-map__names text { font-variation-settings: "opsz" 19; }
+.route-map__route { transition: opacity .3s var(--ease); }
+/* Standaard (niets gekozen): de weg van Stockholm naar ons met het label "Hoe wil je reizen?" */
+.route-map__route, .route-map__arlanda { opacity: 0; }
+.route-map__default, .route-map__arlanda, .route-map__hint { transition: opacity .3s var(--ease); }
+.route-map--big[data-active] .route-map__default { opacity: 0; }
+.route-map--big[data-active] .route-map__arlanda { opacity: 1; }
+.route-map--big .route-map__hint { visibility: hidden; transform: translate(var(--lx, 0px), var(--ly, 0px)) translate(-50%, -50%); }
+.route-map--big .route-map__hint.is-placed { visibility: visible; }
+.route-map--big[data-active] .route-map__hint { opacity: 0; }
+/* Eén route gekozen: enkel die route */
+.route-map--big[data-active="0"] .route-map__route[data-route="0"],
+.route-map--big[data-active="1"] .route-map__route[data-route="1"],
+.route-map--big[data-active="2"] .route-map__route[data-route="2"],
+.route-map--big[data-active="3"] .route-map__route[data-route="3"],
+.route-map--big[data-active="4"] .route-map__route[data-route="4"],
+.route-map--big[data-active="5"] .route-map__route[data-route="5"] { opacity: 1; }
+
+.route-options { display: grid; gap: 16px; }
+.route-options__note { max-width: none; margin-top: 16px; padding-left: 24px;   /* lijnt uit met de inhoud van de route-opties (24px; mobiel 20px) */ font-size: .875em; line-height: var(--lh-body); color: var(--text); }  /* kleine lettertjes onder de opties */
+.card.route-option { padding: 0; overflow: hidden; box-shadow: var(--shadow-lg); transition: border-color .2s var(--ease); }
+.card.route-option.is-open { border-color: var(--brand-600); }  /* 1 donkere lijn voor de gekozen optie (≥ 3:1) */
+.route-option__head { margin: 0; }
+.route-option__toggle {
+  display: flex; align-items: center; gap: 16px; width: 100%;
+  padding: 24px; border: 0; background: none; text-align: left; cursor: pointer;  /* rondom gelijk: boven (24px) is de referentie */
+  font: inherit; color: var(--text);
+}
+.route-option__toggle { transition: background-color .15s; }
+.route-option__toggle:hover { background: var(--white); }  /* hover: de balk blijft wit; rand en groene schaduw tonen de hover */
+/* Hover: dezelfde schaduw (shadow-lg), maar in lichtgroen #BAD497 */
+.card.route-option { transition: border-color .2s var(--ease), box-shadow .2s var(--ease); }
+.card.route-option.is-open,
+.card.route-option:has(.route-option__toggle:hover) {
+  border-color: var(--brand-600);  /* zelfde rand als een open optie */
+  box-shadow: var(--shadow-brand);
+}
+.route-option__toggle:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: -4px; border-radius: var(--radius-media); }
+/* Icoon in een lichtgroen vak, zoals bij "Eerst en vooral" */
+.route-option__icon { border: 0; color: var(--text); background: var(--brand-50); transition: background-color .15s; }
+.route-option__total { transition: background-color .15s; }
+.route-option__title { font-family: var(--font-title); font-weight: 600; font-size: var(--fs-title); line-height: var(--lh-title); }
+.route-option__total { margin-left: auto; gap: 12px; padding-left: 6px; }
+.route-option__total .icon { width: 14px; height: 14px; color: var(--gray-500); }
+.route-option__chevron { flex-shrink: 0; transition: transform .3s var(--ease); }
+.is-open .route-option__chevron { transform: rotate(180deg); }
+
+/* Openklappen: de hoogte groeit vloeiend mee (grid-rows 0fr → 1fr) */
+.js .route-option__details { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s var(--ease); }
+.js .route-option__details > .route-option__inner { min-height: 0; overflow: hidden; visibility: hidden; opacity: 0;
+  transition: opacity .25s var(--ease), visibility 0s linear .35s; }
+.js .is-open .route-option__details { grid-template-rows: 1fr; }
+.js .is-open .route-option__details > .route-option__inner { visibility: visible; opacity: 1; transition: opacity .3s var(--ease) .1s, visibility 0s; }
+/* Geen padding op het binnenste element (anders klapt 0fr niet volledig dicht): de marges staan op de kinderen */
+.route-option__inner > * { margin-inline: 24px; }
+.route-option__inner > :first-child { margin-top: 0; }
+.route-option__inner > :last-child { margin-bottom: 24px; }
+.route-option .route__step { margin-inline: -24px; padding-inline: 24px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .route-map__route, .route-map__default, .route-map__arlanda, .route-map__hint, .route-option__chevron,
+  .js .route-option__details, .js .route-option__details > .route-option__inner { transition: none; }
+}
+@media (max-width: 1024px) {
+  .routes-explorer { grid-template-columns: 1fr; }
+  .route-map--big { position: relative; top: auto; width: min(100%, 480px); }  /* 4:5, zodat Stockholm en ons huis altijd in beeld zijn */
+}
+@media (max-width: 768px) {
+  .route-option__toggle { flex-wrap: wrap; padding: 20px; row-gap: 8px; }
+  .route-option__title { flex: 1 1 60%; }
+  .route-option__total { margin-left: 0; order: 4; }
+  .route-option__chevron { order: 3; }
+  .route-option__inner > * { margin-inline: 20px; }
+  .route-option__inner > :last-child { margin-bottom: 20px; }
+  .route-option .route__step { margin-inline: -20px; padding-inline: 20px; }
+  .route-options__note { padding-left: 20px; }
+}
+
+/* ------------------------------------------------------------------ Menu (15 november 2026)
+   Vast bovenaan, wit met transparantie en blur. Op smalle schermen schuift de rij horizontaal. */
+:root { --nav-h: 64px; }
+.site-nav {
+  position: fixed; inset: 0 0 auto; z-index: 50;
+  background: rgba(255, 255, 255, .72);
+  -webkit-backdrop-filter: saturate(180%) blur(16px); backdrop-filter: saturate(180%) blur(16px);
+  border-bottom: 1px solid rgba(16, 24, 40, .06);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-nav { background: rgba(255, 255, 255, .96); }   /* zonder blur: bijna wit, zodat de tekst leesbaar blijft */
+}
+.site-nav__list {
+  display: flex; align-items: center; gap: 4px; height: var(--nav-h);
+  margin: 0 max(-36px, calc(-1 * var(--gutter))); padding: 0; list-style: none;   /* tekst van het eerste item lijnt uit met de inhoud; op mobiel nooit buiten het scherm */
+  overflow-x: auto; scrollbar-width: none;
+}
+.site-nav__list::-webkit-scrollbar { display: none; }
+/* Horizontaal gecentreerd. Met auto-marges i.p.v. justify-content: center, zodat je op een smal scherm nog tot het eerste item kunt schuiven */
+.site-nav__list > li:first-child { margin-left: auto; }
+.site-nav__list > li:last-child { margin-right: auto; }
+.site-nav__link {
+  display: block; padding: 8px 36px; border-radius: var(--radius-control);
+  font-weight: 600; line-height: var(--lh-body); color: var(--text); text-decoration: none; white-space: nowrap;
+  transition: background-color .15s;
+}
+.site-nav__link:hover { background: rgba(16, 24, 40, .05); }
+.site-nav__link[aria-current] { background: rgba(255, 255, 255, .8); }  /* huidige sectie: wit op 80% */
+.site-nav__link:focus-visible { outline-offset: -2px; }   /* binnen de schuifrij, anders valt de focusring weg */
+/* Enkel voor wie meer contrast vraagt (systeeminstelling) of een hoog-contrastmodus gebruikt: een fijn randje rond de knoppen */
+@media (prefers-contrast: more) {
+  .site-nav__link { box-shadow: inset 0 0 0 1px var(--gray-500); }
+  .site-nav__link[aria-current] { box-shadow: inset 0 0 0 1px var(--text); }
+}
+@media (forced-colors: active) {
+  .site-nav__link { border: 1px solid transparent; }
+  .site-nav__link[aria-current] { border-color: CanvasText; }
+}
+
+/* ------------------------------------------------------------------ Plaatsnamen op de kaarten (15 november 2026)
+   Html-labels naast de pinnen: titelfont, wit en transparant met blur. Ze blijven even groot als de kaart schaalt of inzoomt.
+   Kaart van de regio (img): positie in % (--x/--y; mobiel --xm/--ym). Andere kaarten: main.js zet --lx/--ly. */
+.map-tag {
+  position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; white-space: nowrap;
+  display: grid; justify-items: start;
+  padding: 4px 10px; border-radius: var(--radius-badge);
+  font-family: var(--font-title); font-weight: 700; font-size: var(--fs-body); line-height: 1.3; color: var(--text);
+  font-variation-settings: "opsz" 19;   /* zelfde vormen van & h m n s als de titels */
+  background: rgba(255, 255, 255, .6);
+  -webkit-backdrop-filter: saturate(180%) blur(8px); backdrop-filter: saturate(180%) blur(8px);
+  transform: translate(var(--lx, 0px), var(--ly, 0px)) translate(6px, -50%);
+}
+.map-tag small { font-family: var(--font-body); font-weight: 400; font-size: .75em; line-height: 1.4; font-variation-settings: normal; }
+.map-tag--end { transform: translate(var(--lx, 0px), var(--ly, 0px)) translate(calc(-100% - 6px), -50%); }
+.map-tag--top { transform: translate(var(--lx, 0px), var(--ly, 0px)) translate(6px, -14px); }   /* 2 regels: de naam staat op de hoogte van de pin (4px padding + halve regel) */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .map-tag { background: rgba(255, 255, 255, .9); } }
+/* Kaart van de regio: zoomt in tijdens het scrollen, zoals de kaart van Zweden (main.js, data-zoom; mobiel data-zoom-m) */
+.map-wide.map-zoom { position: relative; overflow: hidden; border-radius: var(--radius-media); isolation: isolate; aspect-ratio: 3840 / 2160; }
+.map-zoom picture { height: 100%; }
+.map-zoom img { height: 100%; object-fit: cover; object-position: 50% 50%; border-radius: 0; transform-origin: 0 0; will-change: transform; }
+@media (max-width: 768px) {
+  .map-wide.map-zoom { aspect-ratio: 2620 / 1900; }
+  .map-zoom .map-tag { font-size: .875em; }
+}
+.map-zoom .map-tag { visibility: hidden; }
+.map-zoom .map-tag.is-placed { visibility: visible; }
+/* Grote kaart en route-verkenner: verborgen tot main.js ze geplaatst heeft */
+.map-plain .map-tag, .route-map--big .map-tag { visibility: hidden; }
+.map-plain .map-tag.is-placed, .route-map--big .map-tag.is-placed { visibility: visible; }
+/* Route-verkenner: enkel de namen van wat er op de kaart staat */
+.route-map--big .map-tag { opacity: 0; transition: opacity .3s var(--ease); }
+.route-map--big .map-tag[data-show="always"],
+.route-map--big:not([data-active]) .map-tag[data-show="default"],
+.route-map--big[data-active] .map-tag[data-show="active"],
+.route-map--big[data-active="0"] .map-tag[data-show="0"],
+.route-map--big[data-active="1"] .map-tag[data-show="1"],
+.route-map--big[data-active="2"] .map-tag[data-show="2"],
+.route-map--big[data-active="3"] .map-tag[data-show="3"] { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .route-map--big .map-tag { transition: none; } }
+
+/* ------------------------------------------------------------------ Drie regio's (15 november 2026)
+   Elk een kaart: icoon in een lichtgroen vak, titel, korte uitleg, link naar de officiële website
+   en "Onze ervaringen" (eigen website, komt later: nog geen link). */
+.region-cards { margin-top: 64px; align-items: stretch; row-gap: 0; }   /* rijafstand via de kaarten: dichte panelen nemen geen ruimte in */
+.region-card { order: 1; margin-bottom: 24px; }
+/* "Onze tips": paneel over de volle breedte. Desktop: onder de drie blokken (order). Mobiel: meteen onder zijn blok. */
+.region-tips { order: 2; grid-column: 1 / -1; }
+.region-tips__intro { margin: 24px 0 48px; }   /* zonder kopblok; in .region-tips__head neemt die de marge over */
+.region-tips__intro p { margin: 0; }
+.region-tips__intro p + p { margin-top: 12px; }   /* boven: 24 (kaartmarge) + 24 = 48px; onder: 48px tot de tipblokken */
+.region-tips__inner > .grid { margin-bottom: 24px; }
+.region-tips .card__title { font-size: var(--fs-title); }
+.tip-placeholder { display: grid; place-items: center; min-height: 200px; padding: 24px; text-align: center;
+  border: 1px dashed var(--gray-300); border-radius: var(--radius-media); background: rgba(255, 255, 255, .6); }
+.tip-placeholder p { margin: 0; color: var(--text); }
+/* Regioblok = één klikbare knop (zelfde opmaak en gedrag als de reisopties): icoon, titel, pijltje.
+   Hover en open: donkergroene rand + groene schaduw; een tweede klik sluit. */
+.card.region-card { padding: 0; overflow: hidden; transition: border-color .2s var(--ease), box-shadow .2s var(--ease); }
+.region-card.is-open,
+.region-card:has(.region-card__toggle:hover) { border-color: var(--brand-600); box-shadow: var(--shadow-brand); }
+.region-card__head { margin: 0; font-size: 1em; }   /* h3 zonder eigen browsergrootte: titel even groot als bij de reisopties (h4) */
+.region-card__toggle {
+  display: flex; align-items: center; gap: 16px; width: 100%; padding: 24px;
+  border: 0; background: none; text-align: left; cursor: pointer; font: inherit; color: var(--text);
+}
+.region-card__toggle:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: -4px; border-radius: var(--radius-media); }
+.region-card__icon { border: 0; background: var(--brand-50); color: var(--text); }
+.region-card__title { font-family: var(--font-title); font-weight: 600; font-size: var(--fs-title); line-height: var(--lh-title); }
+.region-card__chevron { width: 20px; height: 20px; margin-left: auto; flex-shrink: 0; transition: transform .3s var(--ease); }
+.region-card.is-open .region-card__chevron { transform: rotate(180deg); }
+.js .region-tips { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s var(--ease); }
+.js .region-tips > .region-tips__inner { min-height: 0; overflow: hidden; visibility: hidden; opacity: 0;
+  transition: opacity .25s var(--ease), visibility 0s linear .35s; }
+.js .region-tips.is-open { grid-template-rows: 1fr; }
+.js .region-tips.is-open > .region-tips__inner { visibility: visible; opacity: 1; transition: opacity .3s var(--ease) .1s, visibility 0s; }
+@media (max-width: 768px) { .region-card, .region-tips { order: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .region-card__chevron, .js .region-tips, .js .region-tips > .region-tips__inner { transition: none; }
+}
+/* Open paneel: regiotekst links, "Officiële website" rechts bovenaan (mobiel: onder de tekst) */
+.region-tips__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px 48px; margin: 24px 0 48px;
+  padding: 32px 40px; border-radius: var(--radius-container); background: var(--tint); color: var(--text); }   /* eigen groene container, zoals het Visit Sweden-blok (.callout) */
+.region-tips__head .region-tips__intro { max-width: 65ch; }
+.region-tips__head .btn--tertiary { background: var(--white); }   /* wit op het groen; grijs zou er vaal op staan */
+.region-tips__head .btn--tertiary:hover { background: var(--gray-50); }
+.region-tips__head .region-tips__intro { margin: 0; }
+.region-tips__site { flex-shrink: 0; }
+.region-tips__site .icon { width: 16px; height: 16px; }
+@media (max-width: 768px) { .region-tips__head { flex-direction: column; padding: 24px; } }
+/* "Onze tips" binnen het open stuk: kop met lampje, korte inleiding, dan de tipblokken */
+.region-tips__title { display: flex; align-items: center; gap: 8px; margin: 0 0 8px;
+  font-family: var(--font-title); font-weight: 600; font-size: var(--fs-title); line-height: var(--lh-title); color: var(--text-primary); }
+.region-tips__title .icon { width: 20px; height: 20px; flex-shrink: 0; }
+.region-tips__lead { margin: 0 0 48px; }
+/* Tertiaire knop: vaste lichtgrijze achtergrond, bij hover iets donkerder */
+.btn--tertiary { background: var(--gray-100); border: 1px solid transparent; color: var(--text); }
+.btn--tertiary:hover { background: var(--gray-200); }

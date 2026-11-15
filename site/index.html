@@ -26,6 +26,20 @@
 </head>
 <body>
 
+<!-- ============ Menu (vast bovenaan) ============ -->
+<nav class="site-nav" aria-label="Hoofdmenu">
+  <div class="container">
+    <ul class="site-nav__list">
+      <li><a class="site-nav__link" href="#zweden-is-groot">Reis</a></li>
+      <li><a class="site-nav__link" href="#indrukwekkende-natuur">Natuur</a></li>
+      <li><a class="site-nav__link" href="#onze-omgeving">Omgeving</a></li>
+      <li><a class="site-nav__link" href="#sleep-eat-shop" data-tab="sleep">Sleep</a></li>
+      <li><a class="site-nav__link" href="#sleep-eat-shop" data-tab="shop">Shop</a></li>
+      <li><a class="site-nav__link" href="#sleep-eat-shop" data-tab="eat">Eat</a></li>
+    </ul>
+  </div>
+</nav>
+
 <main id="top">
 
 <!-- ============ Hero ============ -->
@@ -52,7 +66,6 @@
       <p class="lead">We kijken er enorm naar uit om je Zweden en onze prachtige plek in Hällesjö te tonen! We zijn zelf verliefd geworden op dit fantastische land en willen dat enthousiasme graag met je delen.</p>
 
       <h3 class="eyebrow-title">Enkele belangrijke praktische zaken:</h3>
-
       <ul class="feature-list">
         <li class="feature">
           <span class="featured-icon" aria-hidden="true">
@@ -92,13 +105,128 @@
       </div>
 
       <div class="callout">
-        <p><strong><a class="link" href="https://visitsweden.nl" target="_blank" rel="noopener">VISIT SWEDEN<span class="sr-only"> (opent in nieuw venster)</span></a></strong> - Een nederlandstalige website boordevol tips en duidelijke reisgidsen. Ze hebben zelfs een volledige pagina specifiek voor vervoer: <strong><a class="link link--arrow" href="https://visitsweden.nl/over-zweden/reizen-naar-zweden/" target="_blank" rel="noopener">VISIT SWEDEN - Reizen naar Zweden<span class="sr-only"> (opent in nieuw venster)</span></a></strong></p>
+        <p><strong><a class="link" href="https://visitsweden.nl" target="_blank" rel="noopener">VISIT SWEDEN<span class="sr-only"> (opent in nieuw venster)</span></a></strong> - Een Nederlandstalige website boordevol tips en duidelijke reisgidsen. Ze hebben zelfs een volledige pagina specifiek voor vervoer: <strong><a class="link link--arrow" href="https://visitsweden.nl/over-zweden/reizen-naar-zweden/" target="_blank" rel="noopener">VISIT SWEDEN - Reizen naar Zweden<span class="sr-only"> (opent in nieuw venster)</span></a></strong></p>
       </div>
     </div>
 
-    <figure class="map-plain reveal">
-      <img src="img/map-zweden.svg" alt="Kaart van Zweden" loading="lazy" width="328" height="500">
+    <figure class="map-plain reveal" data-vb="328.37 500" data-zoom="66 147 200 312">
+      <img src="img/map-zweden.svg" alt="Kaart van Midden-Zweden: Wim en Iris wonen ongeveer 480 km of 5u30 rijden ten noorden van Stockholm." loading="lazy" width="328" height="500">
+      <span class="map-label map-label--center" aria-hidden="true" data-x="163.86" data-y="284.48">± 5u30 · 480 km</span>
+      <span class="map-tag" aria-hidden="true" data-x="168.81" data-y="244.37">Wim &amp; Iris</span>
+      <span class="map-tag" aria-hidden="true" data-x="191.20" data-y="342.62">Stockholm</span>
+      <!-- Route (zelfde lijn als in de kaart) waarover het autootje rijdt; enkel om te rekenen, niet zichtbaar -->
+      <svg class="map-route" aria-hidden="true" focusable="false" width="0" height="0"><path d="M164.19,252.70 C163.31,254.82 158.95,260.14 158.90,265.44 C158.84,270.74 162.45,279.15 163.86,284.48 C165.26,289.80 165.54,292.22 167.34,297.40 C169.13,302.58 174.23,309.34 174.64,315.55 C175.05,321.75 169.72,330.27 169.82,334.63 C169.91,339.00 173.45,340.27 175.21,341.75 C176.97,343.23 178.49,342.21 180.38,343.51 C182.27,344.81 185.55,348.54 186.58,349.55"/></svg>
+      <span class="map-car" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="map-car__body" d="M3 17V11.6a2 2 0 0 1 .2-.9l1.9-3.8A2 2 0 0 1 6.9 6h10.2a2 2 0 0 1 1.8 1.1l1.9 3.8c.1.3.2.6.2.9V17Z"/><path d="M5 17H4a1 1 0 0 1-1-1v-4.4a2 2 0 0 1 .2-.9l1.9-3.8A2 2 0 0 1 6.9 6h10.2a2 2 0 0 1 1.8 1.1l1.9 3.8c.1.3.2.6.2.9V16a1 1 0 0 1-1 1h-1M3.5 11h17M9 17h6"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></span>
     </figure>
+  </div>
+
+  <!-- Vanuit Stockholm naar ons: vijf routes, elk met een minikaartje. Lijnen, iconen en pinnen komen uit de sprite hieronder. -->
+  <div class="container travel">
+    <svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+  <symbol id="rp-pin" viewBox="0 0 24 24"><path fill="#fff" stroke="#335015" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M12 22c4-4 8-7.58 8-12a8 8 0 1 0-16 0c0 4.42 4 8 8 12Z"/><path fill="none" stroke="#335015" vector-effect="non-scaling-stroke" stroke-width="1.5" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></symbol>
+  <symbol id="rp-home" viewBox="0 0 24 24"><path fill="#fff" stroke="#335015" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke-linejoin="round" d="M12 22c4-4 8-7.58 8-12a8 8 0 1 0-16 0c0 4.42 4 8 8 12Z"/><g transform="translate(6.00 4.00) scale(0.5)"><path fill="#335015" d="M12 3.2 3.6 9.6v10.1c0 .7.6 1.3 1.3 1.3H9.6v-6.2h4.8V21h4.7c.7 0 1.3-.6 1.3-1.3V9.6Z"/></g></symbol>
+  <symbol id="rp-train-line" viewBox="0 0 24 24"><path d="M8 3.1V7a4 4 0 0 0 8 0V3.1"/><path d="m9 15-1-1"/><path d="m15 15 1-1"/><path d="M9 19c-2.8 0-5-2.2-5-5v-4a8 8 0 0 1 16 0v4c0 2.8-2.2 5-5 5Z"/><path d="m8 19-2 3"/><path d="m16 19 2 3"/></symbol>
+  <symbol id="rp-car-line" viewBox="0 0 24 24"><path d="M5 17H4a1 1 0 0 1-1-1v-4.4a2 2 0 0 1 .2-.9l1.9-3.8A2 2 0 0 1 6.9 6h10.2a2 2 0 0 1 1.8 1.1l1.9 3.8c.1.3.2.6.2.9V16a1 1 0 0 1-1 1h-1M3.5 11h17M9 17h6"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></symbol>
+  <symbol id="rp-plane-line" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+  <symbol id="rp-train" viewBox="0 0 24 24"><g fill="none" stroke="#335015" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path vector-effect="non-scaling-stroke" fill="#fff" d="M9 19c-2.8 0-5-2.2-5-5v-4a8 8 0 0 1 16 0v4c0 2.8-2.2 5-5 5Z"/><path vector-effect="non-scaling-stroke" d="M8 3.1V7a4 4 0 0 0 8 0V3.1"/><path vector-effect="non-scaling-stroke" d="m9 15-1-1"/><path vector-effect="non-scaling-stroke" d="m15 15 1-1"/><path vector-effect="non-scaling-stroke" d="m8 19-2 3"/><path vector-effect="non-scaling-stroke" d="m16 19 2 3"/></g></symbol>
+  <symbol id="rp-car" viewBox="0 0 24 24"><g fill="none" stroke="#335015" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path vector-effect="non-scaling-stroke" fill="#fff" stroke="none" d="M3 17V11.6a2 2 0 0 1 .2-.9l1.9-3.8A2 2 0 0 1 6.9 6h10.2a2 2 0 0 1 1.8 1.1l1.9 3.8c.1.3.2.6.2.9V17Z"/><path vector-effect="non-scaling-stroke" d="M5 17H4a1 1 0 0 1-1-1v-4.4a2 2 0 0 1 .2-.9l1.9-3.8A2 2 0 0 1 6.9 6h10.2a2 2 0 0 1 1.8 1.1l1.9 3.8c.1.3.2.6.2.9V16a1 1 0 0 1-1 1h-1M3.5 11h17M9 17h6"/><circle vector-effect="non-scaling-stroke" fill="#fff" cx="7" cy="17" r="2"/><circle vector-effect="non-scaling-stroke" fill="#fff" cx="17" cy="17" r="2"/></g></symbol>
+  <symbol id="rp-clock" viewBox="0 0 24 24"><path d="M12 6v6l4 2m6-2c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2s10 4.477 10 10Z"/></symbol>
+  <symbol id="rp-plane" viewBox="0 0 24 24"><path fill="#fff" stroke="#335015" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke-linejoin="round" d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+</svg>
+    <header class="travel__header reveal">
+      <h3 class="sub-title">Zo geraak je bij ons vanuit Stockholm</h3>
+      <p>Plan je een kort bezoek en vlieg je heen en terug naar ons? Dan land je bijna altijd in Stockholm Arlanda. Van daar zijn er meerdere manieren om bij ons te komen. Hieronder vind je de meest gebruikte, en de routes die wij of vrienden al getest hebben.</p>
+    </header>
+    <div class="routes-explorer">
+      <figure class="route-map route-map--big" aria-hidden="true">
+        <svg viewBox="108 228 104 130" preserveAspectRatio="xMidYMid slice" focusable="false"><image href="img/map-zweden-basis.svg" width="328.37" height="500"/><g class="route-map__route" data-route="0"><g fill="none"><path class="route-map__train" d="M184.85,341.47 C184.31,340.59 183.12,340.60 181.63,336.21 C180.14,331.83 177.02,321.42 175.91,315.15 C174.80,308.88 175.04,303.26 174.97,298.60 C174.90,293.94 175.03,292.09 175.50,287.18 C175.97,282.27 177.43,272.13 177.82,269.12"/><path class="route-map__car" d="M177.82,269.12 C176.85,267.69 173.22,263.52 172.00,260.55 C170.78,257.58 171.81,252.84 170.51,251.30 C169.20,249.76 165.24,251.30 164.19,251.30" style="stroke-dasharray:1.201 0.900"/></g><g class="route-map__extra"><use href="#rp-train" x="172.65" y="303.30" width="5.5" height="5.5"/><use href="#rp-car" x="168.82" y="255.17" width="5.5" height="5.5"/><use href="#rp-pin" x="175.07" y="264.08" width="5.5" height="5.5"/><g class="route-map__names"></g></g></g><g class="route-map__route" data-route="1"><g fill="none"><path class="route-map__car" d="M184.85,341.47 C184.31,340.59 183.12,340.60 181.63,336.21 C180.14,331.83 178.30,321.62 175.91,315.15 C173.53,308.68 169.35,302.51 167.34,297.40 C165.33,292.29 165.26,289.80 163.86,284.48 C162.45,279.15 158.84,270.97 158.90,265.44 C158.95,259.91 163.31,253.66 164.19,251.30" style="stroke-dasharray:1.206 0.905"/></g><g class="route-map__extra"><use href="#rp-car" x="164.53" y="294.43" width="5.5" height="5.5"/><g class="route-map__names"></g></g></g><g class="route-map__route" data-route="2"><g fill="none"><path class="route-map__plane" d="M184.85,341.47 Q192.09,302.68 179.39,265.33" style="stroke-dasharray:0 1.245"/><path class="route-map__car" d="M179.39,265.33 C178.73,265.14 176.67,264.96 175.44,264.17 C174.21,263.37 172.82,262.69 172.00,260.55 C171.17,258.41 171.81,252.84 170.51,251.30 C169.20,249.76 165.24,251.30 164.19,251.30" style="stroke-dasharray:1.248 0.936"/></g><g class="route-map__extra"><use href="#rp-plane" x="184.36" y="300.29" width="5.5" height="5.5"/><use href="#rp-car" x="168.72" y="254.56" width="5.5" height="5.5"/><use href="#rp-pin" x="176.64" y="260.29" width="5.5" height="5.5"/><g class="route-map__names"></g></g></g><g class="route-map__route" data-route="3"><g fill="none"><path class="route-map__plane" d="M184.85,341.47 Q152.28,299.42 145.59,246.66" style="stroke-dasharray:0 1.252"/><path class="route-map__car" d="M145.59,246.66 C145.86,246.73 146.28,247.18 147.20,247.06 C148.12,246.94 149.27,245.87 151.10,245.93 C152.93,245.98 156.44,246.83 158.20,247.40 C159.96,247.97 160.67,248.67 161.66,249.32 C162.66,249.97 163.77,250.97 164.19,251.30" style="stroke-dasharray:1.209 0.907"/></g><g class="route-map__extra"><use href="#rp-plane" x="156.00" y="293.99" width="5.5" height="5.5"/><use href="#rp-car" x="152.61" y="244.06" width="5.5" height="5.5"/><use href="#rp-pin" x="142.84" y="241.62" width="5.5" height="5.5"/><g class="route-map__names"></g></g></g><g class="route-map__default"><path class="route-map__car route-map__road" fill="none" d="M164.19,251.30 C163.31,254.82 158.95,260.14 158.90,265.44 C158.84,270.74 162.45,279.15 163.86,284.48 C165.26,289.80 165.54,292.22 167.34,297.40 C169.13,302.58 174.23,309.34 174.64,315.55 C175.05,321.75 169.72,330.27 169.82,334.63 C169.91,339.00 173.45,340.27 175.21,341.75 C176.97,343.23 178.49,342.21 180.38,343.51 C182.27,344.81 185.55,348.54 186.58,349.55" style="stroke-dasharray:1.211 0.908"/><use href="#rp-pin" x="183.83" y="344.51" width="5.5" height="5.5"/><g class="route-map__names"></g></g><g class="route-map__arlanda"><use href="#rp-pin" x="182.10" y="336.43" width="5.5" height="5.5"/><g class="route-map__names"></g></g><use href="#rp-home" x="160.44" y="244.43" width="7.5" height="7.5"/><g class="route-map__names"></g></svg>
+        <span class="map-label map-label--center route-map__hint">Hoe wil je reizen?</span>
+        <span class="map-tag" data-x="179.65" data-y="266.37" data-show="0">Sundsvall</span>
+        <span class="map-tag" data-x="181.23" data-y="262.58" data-show="2">Timrå</span>
+        <span class="map-tag map-tag--end" data-x="143.76" data-y="243.91" data-show="3">Östersund</span>
+        <span class="map-tag map-tag--end" data-x="184.75" data-y="346.80" data-show="default">Stockholm</span>
+        <span class="map-tag" data-x="186.68" data-y="338.72" data-show="active">Arlanda</span>
+        <span class="map-tag" data-x="166.69" data-y="247.55" data-show="always">Wim &amp; Iris</span>
+      </figure>
+      <div class="route-options">
+        <article class="card route-option" data-route="0">
+          <h4 class="route-option__head">
+            <button type="button" class="route-option__toggle" aria-expanded="false" aria-controls="route-0">
+              <span class="featured-icon route-option__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-train-line"/></svg></span>
+              <span class="route-option__title">Trein naar Sundsvall</span>
+              <span class="badge route-option__total"><span class="sr-only">Reistijd vanaf Arlanda: </span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-clock"/></svg>± 4u35</span>
+              <svg class="icon route-option__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+          </h4>
+          <div class="route-option__details" id="route-0">
+            <div class="route-option__inner">
+            <ol class="route__steps">
+              <li class="route__step"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-train-line"/></svg><span><span class="sr-only">Trein: </span>SJ-hogesnelheidstrein (Snabbtåg) van Arlanda naar Sundsvall Central</span> <span class="badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-clock"/></svg>± 3u15</span></li>
+              <li class="route__step"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-car-line"/></svg><span><span class="sr-only">Auto: </span>Met de auto van Sundsvall naar ons</span> <span class="badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-clock"/></svg>± 1u20</span></li>
+            </ol>
+            <p>De trein vertrekt in het station onder de luchthaven en volgt de kust via Uppsala, Gävle en Hudiksvall. Vanaf Sundsvall rij je landinwaarts naar Hällesjö. Huur je zelf geen auto? Dan pikken we je graag op aan het station, maar hou wel rekening met onze (werk)agenda's. Spreek dus goed op voorhand met ons af.</p>
+            </div>
+          </div>
+        </article>
+        <article class="card route-option" data-route="1">
+          <h4 class="route-option__head">
+            <button type="button" class="route-option__toggle" aria-expanded="false" aria-controls="route-1">
+              <span class="featured-icon route-option__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-car-line"/></svg></span>
+              <span class="route-option__title">Huurauto vanaf Arlanda</span>
+              <span class="badge route-option__total"><span class="sr-only">Reistijd vanaf Arlanda: </span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-clock"/></svg>± 5u</span>
+              <svg class="icon route-option__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+          </h4>
+          <div class="route-option__details" id="route-1">
+            <div class="route-option__inner">
+            <ol class="route__steps">
+              <li class="route__step"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-car-line"/></svg><span><span class="sr-only">Auto: </span>Auto huren op de luchthaven en rechtstreeks naar ons</span> <span class="badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-clock"/></svg>± 5u</span></li>
+            </ol>
+            <p>Je haalt je huurauto op in Arlanda en rijdt via Uppsala en Gävle, en dan landinwaarts via Bollnäs, Ljusdal en Ånge. Zo heb je meteen je eigen wielen voor de rest van je reis.</p>
+            </div>
+          </div>
+        </article>
+        <article class="card route-option" data-route="2">
+          <h4 class="route-option__head">
+            <button type="button" class="route-option__toggle" aria-expanded="false" aria-controls="route-2">
+              <span class="featured-icon route-option__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-plane-line"/></svg></span>
+              <span class="route-option__title">Doorvliegen naar Sundsvall-Timrå</span>
+              <span class="badge route-option__total"><span class="sr-only">Reistijd vanaf Arlanda: </span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-clock"/></svg>± 2u20</span>
+              <svg class="icon route-option__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+          </h4>
+          <div class="route-option__details" id="route-2">
+            <div class="route-option__inner">
+            <ol class="route__steps">
+              <li class="route__step"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-plane-line"/></svg><span><span class="sr-only">Vliegtuig: </span>Vlucht van Arlanda naar Sundsvall-Timrå, vaak als tussenvlucht</span> <span class="badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-clock"/></svg>± 1u05</span></li>
+              <li class="route__step"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-car-line"/></svg><span><span class="sr-only">Auto: </span>Met de auto van de luchthaven naar ons</span> <span class="badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-clock"/></svg>± 1u15</span></li>
+            </ol>
+            <p>Je vliegt vaak met een tussenvlucht via Arlanda. De luchthaven ligt aan de kust ten noorden van Sundsvall; van daar rij je landinwaarts naar ons. Reken extra tijd voor de overstap. Huur je zelf geen auto? Dan pikken we je graag op aan de luchthaven, maar hou wel rekening met onze (werk)agenda's. Spreek dus goed op voorhand met ons af.</p>
+            </div>
+          </div>
+        </article>
+        <article class="card route-option" data-route="3">
+          <h4 class="route-option__head">
+            <button type="button" class="route-option__toggle" aria-expanded="false" aria-controls="route-3">
+              <span class="featured-icon route-option__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-plane-line"/></svg></span>
+              <span class="route-option__title">Doorvliegen naar Åre Östersund</span>
+              <span class="badge route-option__total"><span class="sr-only">Reistijd vanaf Arlanda: </span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-clock"/></svg>± 2u35</span>
+              <svg class="icon route-option__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+          </h4>
+          <div class="route-option__details" id="route-3">
+            <div class="route-option__inner">
+            <ol class="route__steps">
+              <li class="route__step"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-plane-line"/></svg><span><span class="sr-only">Vliegtuig: </span>Vlucht van Arlanda naar Åre Östersund, vaak als tussenvlucht</span> <span class="badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-clock"/></svg>± 1u05</span></li>
+              <li class="route__step"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-car-line"/></svg><span><span class="sr-only">Auto: </span>Met de auto van de luchthaven naar ons, via de 87</span> <span class="badge"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#rp-clock"/></svg>± 1u30</span></li>
+            </ol>
+            <p>Ook hier vlieg je vaak met een tussenvlucht via Arlanda. De luchthaven ligt op het eiland Frösön bij Östersund; van daar rij je via de 87 en Stugun naar ons. Reken extra tijd voor de overstap. Huur je zelf geen auto? Dan pikken we je graag op aan de luchthaven, maar hou wel rekening met onze (werk)agenda's. Spreek dus goed op voorhand met ons af.</p>
+            </div>
+          </div>
+        </article>
+        <p class="route-options__note">Alle reistijden zijn inschattingen en houden geen rekening met overstappen of vertragingen.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -107,63 +235,130 @@
   <div class="container">
     <header class="section__header reveal">
       <h2 class="section__title">Indrukwekkende natuur</h2>
-      <p class="lead">We bevinden ons tussen twee prachtige toeristische natuurregio’s op minder dan twee uur rijden:</p>
+      <p class="lead">We wonen vlakbij de bekende wildernisroute (<span lang="sv">Vildmarksvägen</span>) en midden tussen twee prachtige toeristische natuurregio’s, die je allebei in minder dan twee uur rijden bereikt:</p>
     </header>
 
-    <figure class="map-wide reveal">
-      <img src="img/map-kalarne.svg" alt="Kaart met Åre, Kälarne en Höga Kusten" loading="lazy" width="1880" height="2160">
+    <figure class="map-wide map-zoom reveal" data-vb="3840 2160" data-zoom="270 216 3300 1856" data-vb-m="2620 1900" data-zoom-m="0 50 2540 1842">
+      <picture>
+        <source media="(max-width: 768px)" srcset="img/map-kalarne-mobile.svg" width="2620" height="1900">
+        <img src="img/map-kalarne.svg" alt="Kaart van de regio: Wim en Iris wonen tussen Åre en Östersund in het westen en de Hoge kusten (Höga Kusten) aan de kust in het oosten, met Sundsvall in het zuidoosten. In het noorden start in Strömsund de Vildmarksvägen." loading="lazy" width="3840" height="2160">
+      </picture>
+      <span class="map-tag" aria-hidden="true" data-x="668.4" data-y="864.8" data-xm="220.9" data-ym="831.0">Åre</span>
+      <span class="map-tag" aria-hidden="true" data-x="1222.5" data-y="1049.5" data-xm="775.0" data-ym="1015.8">Östersund</span>
+      <span class="map-tag map-tag--top" aria-hidden="true" data-x="1568.5" data-y="479.8" data-xm="1121.0" data-ym="446.0">Strömsund<small>Officieel vertrekpunt wildernisroute</small></span>
+      <span class="map-tag" aria-hidden="true" data-x="1816.2" data-y="1237.5" data-xm="1368.9" data-ym="1203.4">Wim &amp; Iris</span>
+      <span class="map-tag" aria-hidden="true" data-x="2203.4" data-y="1728.5" data-xm="1755.9" data-ym="1694.7">Sundsvall</span>
     </figure>
 
-    <div class="regions-list">
-      <div class="feature reveal">
-        <span class="featured-icon" aria-hidden="true">
-            <svg class="icon" viewBox="0 0 24 24"><path d="m8 3 5.5 9.5M8 3 2 21h20l-6-10-2.5 1.5M8 3l2.8 4.8"/></svg>
-          </span>
-        <h3 class="card__title"><a class="link" href="https://aresweden.com/en/" target="_blank" rel="noopener">De bergen van Åre<span class="sr-only"> (opent in nieuw venster)</span></a></h3>
-        <p>Vlak bij de Noorse grens, nabij de stad Östersund</p>
+    <!-- Drie regio's (15 november 2026): elk een blok met de officiële website en een uitklapbaar paneel "Onze tips".
+         Op desktop staan de panelen onder de drie blokken (css order), op mobiel meteen onder hun blok. -->
+    <div class="grid grid--3 region-cards">
+      <div class="card region-card" data-region="0">
+        <h3 class="region-card__head">
+          <button type="button" class="region-card__toggle" aria-expanded="false" aria-controls="tips-0">
+            <span class="featured-icon region-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="m8 3 5.5 9.5M8 3 2 21h20l-6-10-2.5 1.5M8 3l2.8 4.8"/></svg></span>
+            <span class="region-card__title">De bergen van Åre</span>
+            <svg class="icon region-card__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </h3>
       </div>
-      <div class="feature reveal">
-        <span class="featured-icon" aria-hidden="true">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
-          </span>
-        <h3 class="card__title"><a class="link" href="https://www.hogakusten.com/en" target="_blank" rel="noopener">Het werelderfgoedgebied Höga Kusten<span class="sr-only"> (opent in nieuw venster)</span></a></h3>
-        <p>Aan de Botnische Golf (Vanaf Härnösand tot Örnsköldsvik)</p>
+      <div class="region-tips" id="tips-0" role="region" aria-label="Info en tips: De bergen van Åre">
+        <div class="region-tips__inner">
+          <div class="region-tips__head">
+          <div class="region-tips__intro">
+            <p>Vlak bij de Noorse grens en de stad Östersund: spectaculaire landschappen met tal van gemarkeerde wandelroutes, een uitgebreid netwerk van mountainbiketrails in de zomer en skipistes in de winter.</p>
+          </div>
+          <a class="btn btn--tertiary btn--sm region-tips__site" href="https://aresweden.com/en/" target="_blank" rel="noopener">Officiële website<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg><span class="sr-only"> (opent in nieuw venster)</span></a>
+          </div>
+          <h4 class="region-tips__title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></svg>Onze tips</h4>
+          <p class="region-tips__lead">Dingen die wij in Åre gedaan hebben en aanraden. Onze tips volgen binnenkort.</p>
+          <div class="grid grid--3">
+          <div class="tip-placeholder"><p>Tip 1 volgt binnenkort</p></div>
+          <div class="tip-placeholder"><p>Tip 2 volgt binnenkort</p></div>
+          <div class="tip-placeholder"><p>Tip 3 volgt binnenkort</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="card region-card" data-region="1">
+        <h3 class="region-card__head">
+          <button type="button" class="region-card__toggle" aria-expanded="false" aria-controls="tips-1">
+            <span class="featured-icon region-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg></span>
+            <span class="region-card__title">De hoge kusten</span>
+            <svg class="icon region-card__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </h3>
+      </div>
+      <div class="region-tips" id="tips-1" role="region" aria-label="Info en tips: De hoge kusten">
+        <div class="region-tips__inner">
+          <div class="region-tips__head">
+          <div class="region-tips__intro">
+            <p>Het werelderfgoedgebied Höga Kusten ligt aan de Botnische Golf, van Härnösand tot Örnsköldsvik: spectaculaire landschappen met tal van gemarkeerde wandelroutes.</p>
+          </div>
+          <a class="btn btn--tertiary btn--sm region-tips__site" href="https://www.hogakusten.com/en" target="_blank" rel="noopener">Officiële website<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg><span class="sr-only"> (opent in nieuw venster)</span></a>
+          </div>
+          <h4 class="region-tips__title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></svg>Onze tips</h4>
+          <p class="region-tips__lead">In de omgeving van Höga Kusten hebben we zelf al drie wandelingen gedaan die echt indruk op ons maakten, zowel door de adembenemende uitzichten als door de fysieke uitdaging die ze met zich meebrachten.</p>
+          <div class="grid grid--3">
+          <article class="card card--media">
+            <div class="card__media"><img class="card__img" src="img/valkallen.webp" alt="Uitzicht vanop Valkallen" loading="lazy" width="1200" height="900"></div>
+            <div class="card__body">
+              <h5 class="card__title">Valkallen</h5>
+              <p>Een klim van 240m met prachtige vergezichten.</p>
+              <div class="card__actions">
+                <a class="btn btn--tertiary btn--sm stretched" href="https://www.hogakusten.com/en/valkallen" target="_blank" rel="noopener">Meer info<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg><span class="sr-only"> over Valkallen (opent in nieuw venster)</span></a>
+              </div>
+            </div>
+          </article>
+          <article class="card card--media">
+            <div class="card__media"><img class="card__img" src="img/skuleberget.webp" alt="Skuleberget" loading="lazy" width="1200" height="900"></div>
+            <div class="card__body">
+              <h5 class="card__title">Skuleberget</h5>
+              <p>De hoogste berg in de regio. Je kunt helemaal naar de top wandelen of de skilift nemen. Eenmaal boven kan je in de zomer terecht in een gezellige fikabar.</p>
+              <div class="card__actions">
+                <a class="btn btn--tertiary btn--sm stretched" href="https://www.hogakusten.com/en/skuleberget" target="_blank" rel="noopener">Meer info<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg><span class="sr-only"> over Skuleberget (opent in nieuw venster)</span></a>
+              </div>
+            </div>
+          </article>
+          <article class="card card--media">
+            <div class="card__media"><img class="card__img" src="img/wandelpad.webp" alt="Wandelpad in Skuleskogen" loading="lazy" width="1024" height="684"></div>
+            <div class="card__body">
+              <h5 class="card__title">Skuleskogen National Park</h5>
+              <p>Volg de rode route naar de canyon Skåttdalskrevan. Voor wie durft: neem de blauwe route terug. Die leidt je via een uitdagend pad langs de top.</p>
+              <div class="card__actions">
+                <a class="btn btn--tertiary btn--sm stretched" href="https://www.hogakusten.com/en/experiences/nature-outdoor/skuleskogen-national-park" target="_blank" rel="noopener">Meer info<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg><span class="sr-only"> over Skuleskogen National Park (opent in nieuw venster)</span></a>
+              </div>
+            </div>
+          </article>
+          </div>
+        </div>
+      </div>
+      <div class="card region-card" data-region="2">
+        <h3 class="region-card__head">
+          <button type="button" class="region-card__toggle" aria-expanded="false" aria-controls="tips-2">
+            <span class="featured-icon region-card__icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M11.5 5h.43c3.05 0 4.57 0 5.15.55a2 2 0 0 1 .59 1.84c-.16.78-1.4 1.66-3.89 3.42l-4.06 2.87c-2.49 1.76-3.73 2.64-3.89 3.42a2 2 0 0 0 .59 1.84c.58.55 2.1.55 5.15.55h.93M8 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm14 14a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg></span>
+            <span class="region-card__title">De wildernisroute</span>
+            <svg class="icon region-card__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </h3>
+      </div>
+      <div class="region-tips" id="tips-2" role="region" aria-label="Info en tips: De wildernisroute">
+        <div class="region-tips__inner">
+          <div class="region-tips__head">
+          <div class="region-tips__intro">
+            <p>De <span lang="sv">Vildmarksvägen</span> vertrekt in Strömsund en loopt via Gäddede langs de Noorse grens, over de hoogste asfaltweg van Zweden. Plan vooral je eigen routes en activiteiten: het internet staat boordevol inspiratie!</p>
+          </div>
+          <a class="btn btn--tertiary btn--sm region-tips__site" href="https://www.vildmarksvagen.se/9439.html" target="_blank" rel="noopener">Officiële website<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg><span class="sr-only"> (opent in nieuw venster)</span></a>
+          </div>
+          <h4 class="region-tips__title"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5M9 18h6M10 22h4"/></svg>Onze tips</h4>
+          <p class="region-tips__lead">Dingen die wij langs de wildernisroute gedaan hebben en aanraden. Onze tips volgen binnenkort.</p>
+          <div class="grid grid--3">
+          <div class="tip-placeholder"><p>Tip 1 volgt binnenkort</p></div>
+          <div class="tip-placeholder"><p>Tip 2 volgt binnenkort</p></div>
+          <div class="tip-placeholder"><p>Tip 3 volgt binnenkort</p></div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="prose prose--center reveal">
-      <p>Beide regio’s bieden spectaculaire landschappen met tal van gemarkeerde wandelroutes. In Åre vind je bovendien een uitgebreid netwerk van mountainbiketrails in de zomer en skipistes in de winter. Plan vooral je eigen routes en activiteiten - het internet staat boordevol inspiratie!</p>
-      <p>In de omgeving van Höga Kusten hebben we zelf al drie wandelingen gedaan die echt indruk op ons maakten, zowel door de adembenemende uitzichten als door de fysieke uitdaging die ze met zich meebrachten:</p>
-    </div>
-
-    <div class="grid grid--3">
-      <article class="card card--media reveal">
-        <img class="card__img" src="img/valkallen.webp" alt="Uitzicht vanop Valkallen" loading="lazy" width="1200" height="900">
-        <div class="card__body">
-          <h3 class="card__title"><a class="stretched" href="https://www.hogakusten.com/en/valkallen" target="_blank" rel="noopener">Valkallen<span class="sr-only"> (opent in nieuw venster)</span></a></h3>
-          <p>Een klim van 240m met prachtige vergezichten.</p>
-        </div>
-        <svg class="icon card__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg>
-      </article>
-      <article class="card card--media reveal">
-        <img class="card__img" src="img/skuleberget.webp" alt="Skuleberget" loading="lazy" width="1200" height="900">
-        <div class="card__body">
-          <h3 class="card__title"><a class="stretched" href="https://www.hogakusten.com/en/skuleberget" target="_blank" rel="noopener">Skuleberget<span class="sr-only"> (opent in nieuw venster)</span></a></h3>
-          <p>De hoogste berg in de regio. Je kunt helemaal naar de top wandelen of de skilift nemen. Eenmaal boven kan je in de zomer terecht in een gezellige fikabar.</p>
-        </div>
-        <svg class="icon card__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg>
-      </article>
-      <article class="card card--media reveal">
-        <img class="card__img" src="img/wandelpad.webp" alt="Wandelpad in Skuleskogen" loading="lazy" width="1024" height="684">
-        <div class="card__body">
-          <h3 class="card__title"><a class="stretched" href="https://www.hogakusten.com/en/experiences/nature-outdoor/skuleskogen-national-park" target="_blank" rel="noopener">Skuleskogen National Park<span class="sr-only"> (opent in nieuw venster)</span></a></h3>
-          <p>Volg de rode route naar de canyon Skåttdalskrevan. Voor wie durft: neem de blauwe route terug. Die leidt je via een uitdagend pad langs de top.</p>
-        </div>
-        <svg class="icon card__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg>
-      </article>
-    </div>
-
-    <p class="closing-line reveal">Of je nu houdt van ontspannen wandelen of een stevige uitdaging, in deze regio's is er voor elk wat wils.</p>
   </div>
 </section>
 
@@ -184,7 +379,7 @@
       </figure>
     </div>
 
-    <div class="grid grid--3 spots">
+    <div class="grid grid--2 spots">
       <article class="card spot reveal">
         <span class="featured-icon" aria-hidden="true">
           <svg class="icon" viewBox="0 0 24 24"><path d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M12 22c4-4 8-7.58 8-12a8 8 0 1 0-16 0c0 4.42 4 8 8 12Z"/></svg>
@@ -195,15 +390,6 @@
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18-6 3V6l6-3m0 15 6 3m-6-3V3m6 18 6-3V3l-6 3m0 15V6m0 0L9 3"/></svg>
           Bekijk op de kaart
         <span class="sr-only"> (opent in nieuw venster)</span></a>
-      </article>
-
-      <article class="card spot reveal">
-        <span class="featured-icon" aria-hidden="true">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M16 7h.01M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5M10 18v3m4-3.25V21M7 18a6 6 0 0 0 3.84-10.61"/></svg>
-        </span>
-        <h3 class="card__title">Flarkens Våtmark</h3>
-        <p>Op 13km van hier ligt 200ha moerasgebied waar vele vogelsoorten te spotten zijn vanuit een recent gerenoveerde vogelhut. Volg de coördinaten hier: <strong><a class="link" href="https://www.google.com/maps/place/62%C2%B050'01.4" target="_blank" rel="noopener">Google Maps<span class="sr-only"> (opent in nieuw venster)</span></a></strong></p>
-        <p>Je komt eerst een bord tegen aan het meer Storflärken waar je ook gezellig kan zitten in een hut aan het water. Daar staat ook de pijl richting de uitkijktoren. Je wandelt (of rijdt) dus nog verder de weg op tot je op je rechterkant een houtje paaltje met geel rechthoekje tegenkomt (in de bocht). Daar wandel je in en volg je dezelfde paaltjes. Op een bepaald moment steek je een riviertje over en iets verder draai je rechts het bos in. Neem zeker een verrekijker mee!</p>
       </article>
 
       <article class="card spot reveal">
@@ -247,7 +433,7 @@
           <span class="sight__num" aria-hidden="true">04</span>
           <div>
             <a class="sight__title" href="https://maps.apple.com/place?address=Rotselforsen,%20K%C3%A4larne,%20Sweden&amp;auid=873080072673155590&amp;coordinate=62.842718,15.903618&amp;lsp=6489&amp;name=Rotselforsen&amp;map=explore" target="_blank" rel="noopener"><span class="sr-only">04 - </span>Rotselforsen<span class="sr-only"> (opent in nieuw venster)</span></a>
-            <p>Een prachtige waterloop met versnellingen zoals Båthallan. Parkeer je auto en dan is er nog een makkelijk toegankelijke wandeling van ongeveer 300m tot aan de waterloop.</p>
+            <p>Een prachtige waterloop met versnellingen zoals Båthällan. Parkeer je auto en dan is er nog een makkelijk toegankelijke wandeling van ongeveer 300m tot aan de waterloop.</p>
           </div>
         </li>
       </ol>
@@ -291,12 +477,12 @@
     </div>
 
     <!-- Sleep -->
-    <div class="tab-panel" role="tabpanel" id="panel-sleep" aria-labelledby="tab-sleep">
+    <div class="tab-panel" role="tabpanel" id="panel-sleep" tabindex="0" aria-labelledby="tab-sleep">
       <h3 class="panel__title">Sleep</h3>
       <p class="panel__intro">Hier kan je een slaapplek vinden.</p>
       <div class="alert" role="note">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8v4m0 4h.01M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0Z"/></svg>
-        <p>Opgelet! Deze accomodaties zijn niet door ons uitgetest, doe dus zeker voldoende research alvorens je iets boekt.</p>
+        <p>Opgelet! Deze accommodaties zijn niet door ons uitgetest, doe dus zeker voldoende research alvorens je iets boekt.</p>
       </div>
 
       <div class="grid grid--2 stays">
@@ -329,7 +515,7 @@
     </div>
 
     <!-- Shop -->
-    <div class="tab-panel" role="tabpanel" id="panel-shop" aria-labelledby="tab-shop">
+    <div class="tab-panel" role="tabpanel" id="panel-shop" tabindex="0" aria-labelledby="tab-shop">
       <h3 class="panel__title">Shop</h3>
       <div class="grid grid--2">
         <article class="card">
@@ -344,7 +530,7 @@
     </div>
 
     <!-- Eat -->
-    <div class="tab-panel" role="tabpanel" id="panel-eat" aria-labelledby="tab-eat">
+    <div class="tab-panel" role="tabpanel" id="panel-eat" tabindex="0" aria-labelledby="tab-eat">
       <h3 class="panel__title">Eat</h3>
       <p class="panel__intro">Deze regio staat niet meteen bekend voor zijn culturele en gastronomische hoogtepunten. 🙂 Hier is er niets zo leuk dan zelf iets klaarmaken op het open vuur, een barbecue of zelfs de houtoven.</p>
 
@@ -393,7 +579,7 @@
             <li><a href="https://www.sammurai.net/" target="_blank" rel="noopener">Sammurai<span class="sr-only"> (opent in nieuw venster)</span></a> <span class="badge">Sushi</span></li>
             <li><a href="https://www.restaurangtrerum.se/startsida/" target="_blank" rel="noopener">Tre Rum<span class="sr-only"> (opent in nieuw venster)</span></a> <span class="badge">Steakhouse</span></li>
             <li><a href="https://bastardburgers.com/se/restaurants/ostersund/" target="_blank" rel="noopener">Bastard Burgers<span class="sr-only"> (opent in nieuw venster)</span></a> <span class="badge">Deluxe hamburgers</span></li>
-            <li><a href="https://www.restaurangbasta.se/restauranger/sundsvall" target="_blank" rel="noopener">Basta!<span class="sr-only"> (opent in nieuw venster)</span></a> <span class="badge">Italiaans</span></li>
+            <li><a href="https://www.restaurangbasta.se/restauranger/ostersund" target="_blank" rel="noopener">Basta!<span class="sr-only"> (opent in nieuw venster)</span></a> <span class="badge">Italiaans</span></li>
             <li><a href="https://www.max.se/" target="_blank" rel="noopener">Max Burger<span class="sr-only"> (opent in nieuw venster)</span></a> <span class="badge">Fastfood</span></li>
           </ul>
         </div>
