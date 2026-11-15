@@ -1,0 +1,103 @@
+# Zet Visit WiRiZ op wiriz.wimmees.com.
+#
+# Wat dit doet:
+# - Bij elke aanpassing in de map site/ op de hoofdtak (main) worden de
+#   gewijzigde bestanden versleuteld (SSH) naar subsites/wiriz.wimmees.com/ gestuurd.
+# - Het schrijft ALLEEN in die map. wimmees.com (WordPress), learning.wimmees.com
+#   en demo.wimmees.com worden nooit aangeraakt.
+# - Het verwijdert niets op de server.
+# - Bestaat de map op de server nog niet (subsite nog niet aangemaakt in Combell),
+#   dan stopt het zonder iets te doen.
+#
+# Geheim in GitHub (Settings > Secrets and variables > Actions):
+#   SSH_PASSWORD  hetzelfde wachtwoord als in de opslagplaats wim-mees/elearnings
+#                 (het wachtwoord van de Combell-hosting).
+
+name: Publiceer Visit WiRiZ
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "site/**"
+  workflow_dispatch:
+    inputs:
+      proefrit:
+        description: "Enkel tonen wat er zou gebeuren, zonder iets op de server te zetten"
+        type: boolean
+        default: true
+
+concurrency:
+  group: publiceer-visit-wiriz
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  SSH_HOST: ssh.wimmees.com
+  SSH_USER: wimmeescom
+  DOEL: subsites/wiriz.wimmees.com/
+
+jobs:
+  publiceer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Controleer of het SSH-wachtwoord ingesteld is
+        id: check
+        env:
+          WACHTWOORD: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          if [ -z "$WACHTWOORD" ]; then
+            echo "klaar=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Nog geen SSH_PASSWORD ingesteld. Er is niets gepubliceerd."
+          else
+            echo "klaar=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Haal de bestanden op
+        if: steps.check.outputs.klaar == 'true'
+        uses: actions/checkout@v4
+
+      - name: Bereid de beveiligde verbinding voor
+        if: steps.check.outputs.klaar == 'true'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq sshpass > /dev/null
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          # Vastgelegde sleutel van de Combell-server: zo praten we zeker met de echte server.
+          cp .github/known_hosts ~/.ssh/known_hosts
+
+      - name: Controleer de map op de server
+        id: map
+        if: steps.check.outputs.klaar == 'true'
+        env:
+          SSHPASS: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          if sshpass -e ssh -o StrictHostKeyChecking=yes -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no \
+            "$SSH_USER@$SSH_HOST" "test -d '$DOEL'"; then
+            echo "bestaat=true" >> "$GITHUB_OUTPUT"
+            echo "Map gevonden: $DOEL"
+          else
+            echo "bestaat=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::De map $DOEL bestaat nog niet. Maak eerst de subsite wiriz.wimmees.com aan in Combell. Er is niets gepubliceerd."
+          fi
+
+      - name: Zet de site op de server
+        if: steps.check.outputs.klaar == 'true' && steps.map.outputs.bestaat == 'true'
+        env:
+          SSHPASS: ${{ secrets.SSH_PASSWORD }}
+          PROEF: ${{ github.event_name == 'workflow_dispatch' && inputs.proefrit }}
+        run: |
+          # Geen --delete: er verdwijnt nooit iets op de server.
+          OPTIES="-rlz --checksum --itemize-changes --no-perms --no-owner --no-group --chmod=D755,F644 --exclude=.DS_Store"
+          if [ "$PROEF" = "true" ]; then
+            echo "Proefrit: er wordt niets op de server gezet. Dit zou er veranderen:"
+            OPTIES="$OPTIES --dry-run"
+          fi
+          rsync $OPTIES \
+            -e "sshpass -e ssh -o StrictHostKeyChecking=yes -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no" \
+            ./site/ "$SSH_USER@$SSH_HOST:$DOEL"
+          echo "--- Vingerafdruk: links op de server, rechts in GitHub ---"
+          SERVER=$(sshpass -e ssh -o StrictHostKeyChecking=yes -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no \
+            "$SSH_USER@$SSH_HOST" "sha256sum '${DOEL}index.html' 2>/dev/null | cut -c1-12" 2>/dev/null | tail -1)
+          echo "index.html  server:${SERVER:-ontbreekt}  github:$(sha256sum site/index.html | cut -c1-12)"
