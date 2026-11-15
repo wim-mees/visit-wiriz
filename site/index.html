@@ -355,70 +355,62 @@
   </div>
 
   <div class="container">
-    <div class="prose reveal">
+    <div class="prose prose--cols reveal">
       <p>Blijf je liever in 'onze' regio, dan kies je voor meer rust en wordt vooral je innerlijke ontdekkingsreiziger aangesproken. Hier vind je nauwelijks gemarkeerde wandelpaden of verhuur van materiaal, maar wel ongerepte natuur en verborgen parels om zelf te ontdekken.</p>
       <p>Door op verkenning te gaan in onze eigen regio, zijn we al heel wat bijzondere plekken tegengekomen. Die delen we graag met jou! Je kan ze wel niet altijd allemaal terugvinden op het internet.</p>
       <p>We hebben ook een lijstje met '<strong>secret spots</strong>' die we uiteraard niet op internet delen. Enkele prachtige plekjes die we zelf ook via locals ontdekt hebben maar die we met z'n allen willen beschermen tegen 'toerisme'. Deze plekjes bezoeken we heel graag samen met jullie!</p>
     </div>
 
-    <div class="grid grid--2 spots">
-      <article class="card spot reveal">
-        <span class="featured-icon" aria-hidden="true">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/><path d="M12 22c4-4 8-7.58 8-12a8 8 0 1 0-16 0c0 4.42 4 8 8 12Z"/></svg>
-        </span>
-        <h3 class="card__title">Döda fallet</h3>
-        <p>Een wandeling in Döda Fallet (de "Dode Waterval") neemt je mee door een indrukwekkend drooggevallen rivierbedding, waar ooit de krachtigste waterval van Zweden stroomde. Dit natuurgebied ontstond nadat een mislukte wateromleiding in de 18e eeuw ervoor zorgde dat de rivier plotseling verdween. De wandeling voert je over houten loopbruggen, trappen en rotsachtige paden langs kloven en door bossen. Het is een toegankelijke, goed gemarkeerde route.</p>
-        <a class="btn btn--secondary btn--sm spot__btn" href="https://maps.apple.com/place?place-id=I8243FED176B94090&amp;address=D%C3%B6da+Fallet+181%2C+844+94+Bispg%C3%A5rden%2C+Sweden&amp;coordinate=63.0524843%2C16.5212562&amp;name=D%C3%B6da+fallet&amp;_provider=9902" target="_blank" rel="noopener">
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18-6 3V6l6-3m0 15 6 3m-6-3V3m6 18 6-3V3l-6 3m0 15V6m0 0L9 3"/></svg>
-          Bekijk op de kaart
-        <span class="sr-only"> (opent in nieuw venster)</span></a>
-      </article>
-
-      <article class="card spot reveal">
-        <span class="featured-icon" aria-hidden="true">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M12 2v2m0 16v2M4 12H2m4.31-5.69L4.9 4.9m12.79 1.41L19.1 4.9M6.31 17.7 4.9 19.1m12.79-1.41 1.41 1.41M22 12h-2m-3 0a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z"/></svg>
-        </span>
-        <h3 class="card__title">Badplaats Hällesjö</h3>
-        <p>Op 800m is er de publieke badplaats. Een plek met omkleedruimtes, droogtoilet, grillplaats, picknickbankjes, zandbak en strandtoegang tot het meer.</p>
-      </article>
+    <!-- Zelfde rijen als "Onze tips" bij de regio's: beeld links, titel en tekst, knop rechts.
+         Nog geen foto's: het beeldvak toont het icoon in lichtgroen. Foto erbij? Vervang de span door een img.tip-row__img. -->
+    <div class="card tip-card tip-card--spots reveal">
+      <ul class="tip-list">
+        <li class="tip-row">
+          <img class="tip-row__img" src="img/doda-fallet.jpg" alt="Luchtfoto van Döda fallet: de drooggevallen rivierbedding met houten loopbruggen tussen de bossen" loading="lazy" width="960" height="640">
+          <div class="tip-row__body"><h3 class="tip-row__title">Döda fallet</h3><p>Een wandeling in Döda Fallet (de "Dode Waterval") neemt je mee door een indrukwekkend drooggevallen rivierbedding, waar ooit de krachtigste waterval van Zweden stroomde. Dit natuurgebied ontstond nadat een mislukte wateromleiding in de 18e eeuw ervoor zorgde dat de rivier plotseling verdween. De wandeling voert je over houten loopbruggen, trappen en rotsachtige paden langs kloven en door bossen. Het is een toegankelijke, goed gemarkeerde route.</p></div>
+          <div class="tip-row__actions">
+            <a class="btn btn--tertiary btn--sm tip-row__link" href="https://dodafallet.se/" target="_blank" rel="noopener">Meer info<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg><span class="sr-only"> over Döda fallet (opent in nieuw venster)</span></a>
+            <a class="btn btn--tertiary btn--sm tip-row__link" href="https://maps.apple.com/place?place-id=I8243FED176B94090&amp;address=D%C3%B6da+Fallet+181%2C+844+94+Bispg%C3%A5rden%2C+Sweden&amp;coordinate=63.0524843%2C16.5212562&amp;name=D%C3%B6da+fallet&amp;_provider=9902" target="_blank" rel="noopener">Bekijk op de kaart<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg><span class="sr-only"> (opent in nieuw venster)</span></a>
+          </div>
+        </li>
+        <li class="tip-row">
+          <span class="tip-row__img tip-row__img--icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2v2m0 16v2M4 12H2m4.31-5.69L4.9 4.9m12.79 1.41L19.1 4.9M6.31 17.7 4.9 19.1m12.79-1.41 1.41 1.41M22 12h-2m-3 0a5 5 0 1 1-10 0 5 5 0 0 1 10 0Z"/></svg></span>
+          <div class="tip-row__body"><h3 class="tip-row__title">Badplaats Hällesjö</h3><p>Op 800m is er de publieke badplaats. Een plek met omkleedruimtes, droogtoilet, grillplaats, picknickbankjes, zandbak en strandtoegang tot het meer.</p></div>
+        </li>
+      </ul>
     </div>
 
-    <!-- Bezienswaardigheden -->
+    <!-- Bezienswaardigheden: eerst titel en uitleg, daaronder de plekjes als tiprijen in één kaart (zoals Döda fallet).
+         Nog geen foto's: het beeldvak toont het nummer. Foto erbij? Vervang de span door een img.tip-row__img. -->
     <div class="sights">
       <div class="sights__intro reveal">
         <h3 class="sub-title">Bezienswaardigheden</h3>
         <p>Hieronder lijsten we enkele mooie plekjes op, met of zonder korte wandeling beschikbaar. Zeker een aanrader om hier een daguitstap van te maken en met de auto van plekje naar plekje te rijden (rijtijd ongeveer 1,5u). Perfect te doen in 1 dag! Deze zijn vaak gewoon in te geven in Waze, Apple maps of Google maps.</p>
       </div>
-      <ol class="sights__list">
-        <li class="sight reveal">
-          <span class="sight__num" aria-hidden="true">01</span>
-          <div>
-            <a class="sight__title" href="https://maps.apple.com/place?address=B%C3%A5th%C3%A4llan,%20S%C3%B6rbygden,%20Sweden&amp;auid=16128312915750519222&amp;coordinate=62.765990,16.249990&amp;lsp=6489&amp;name=B%C3%A5th%C3%A4llan&amp;map=explore" target="_blank" rel="noopener"><span class="sr-only">01 - </span>Sörbygden Båthällan<span class="sr-only"> (opent in nieuw venster)</span></a>
-            <p>Bekend voor zijn waterversnellingen, de liefhebbers kunnen er ook een dagje vissen.</p>
-          </div>
+      <div class="card tip-card reveal">
+        <ol class="tip-list">
+        <li class="tip-row">
+          <span class="tip-row__img tip-row__img--num" aria-hidden="true">01</span>
+          <div class="tip-row__body"><h4 class="tip-row__title">Sörbygden Båthällan</h4><p>Bekend voor zijn waterversnellingen, de liefhebbers kunnen er ook een dagje vissen.</p></div>
+          <a class="btn btn--tertiary btn--sm tip-row__link" href="https://maps.apple.com/place?address=B%C3%A5th%C3%A4llan,%20S%C3%B6rbygden,%20Sweden&amp;auid=16128312915750519222&amp;coordinate=62.765990,16.249990&amp;lsp=6489&amp;name=B%C3%A5th%C3%A4llan&amp;map=explore" target="_blank" rel="noopener">Bekijk op de kaart<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg><span class="sr-only"> (Sörbygden Båthällan, opent in nieuw venster)</span></a>
         </li>
-        <li class="sight reveal">
-          <span class="sight__num" aria-hidden="true">02</span>
-          <div>
-            <a class="sight__title" href="https://maps.apple.com/place?address=Not%C3%A5vallen,%20S%C3%B6rbygden,%20Sweden&amp;auid=8492737206511481127&amp;coordinate=62.775976,16.042623&amp;lsp=6489&amp;name=Not%C3%A5vallen&amp;map=explore" target="_blank" rel="noopener"><span class="sr-only">02 - </span>Wandeling vanaf Notåvallens camping in Albacken<span class="sr-only"> (opent in nieuw venster)</span></a>
-            <p>Je kan kiezen om de gele ruitjes te volgen (2,8km) of de witte ruitjes (5km). Wil je nadien wat afkoelen dan kan je naast de camping van een hangbrug in de rivier springen.</p>
-          </div>
+        <li class="tip-row">
+          <span class="tip-row__img tip-row__img--num" aria-hidden="true">02</span>
+          <div class="tip-row__body"><h4 class="tip-row__title">Wandeling vanaf Notåvallens camping in Albacken</h4><p>Je kan kiezen om de gele ruitjes te volgen (2,8km) of de witte ruitjes (5km). Wil je nadien wat afkoelen dan kan je naast de camping van een hangbrug in de rivier springen.</p></div>
+          <a class="btn btn--tertiary btn--sm tip-row__link" href="https://maps.apple.com/place?address=Not%C3%A5vallen,%20S%C3%B6rbygden,%20Sweden&amp;auid=8492737206511481127&amp;coordinate=62.775976,16.042623&amp;lsp=6489&amp;name=Not%C3%A5vallen&amp;map=explore" target="_blank" rel="noopener">Bekijk op de kaart<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg><span class="sr-only"> (Wandeling vanaf Notåvallens camping in Albacken, opent in nieuw venster)</span></a>
         </li>
-        <li class="sight reveal">
-          <span class="sight__num" aria-hidden="true">03</span>
-          <div>
-            <a class="sight__title" href="https://maps.apple.com/place?coordinate=62.780492,16.032192&amp;name=S%C3%B6rbygden&amp;map=explore" target="_blank" rel="noopener"><span class="sr-only">03 - </span>Gimån<span class="sr-only"> (opent in nieuw venster)</span></a>
-            <p>Kleine watervalletjes. Je rijdt de camping af en draait links de weg op, 500m verderop parkeren aan rechterkant bij de P net na het bruggetje.</p>
-          </div>
+        <li class="tip-row">
+          <span class="tip-row__img tip-row__img--num" aria-hidden="true">03</span>
+          <div class="tip-row__body"><h4 class="tip-row__title">Gimån</h4><p>Kleine watervalletjes. Je rijdt de camping af en draait links de weg op, 500m verderop parkeren aan rechterkant bij de P net na het bruggetje.</p></div>
+          <a class="btn btn--tertiary btn--sm tip-row__link" href="https://maps.apple.com/place?coordinate=62.780492,16.032192&amp;name=S%C3%B6rbygden&amp;map=explore" target="_blank" rel="noopener">Bekijk op de kaart<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg><span class="sr-only"> (Gimån, opent in nieuw venster)</span></a>
         </li>
-        <li class="sight reveal">
-          <span class="sight__num" aria-hidden="true">04</span>
-          <div>
-            <a class="sight__title" href="https://maps.apple.com/place?address=Rotselforsen,%20K%C3%A4larne,%20Sweden&amp;auid=873080072673155590&amp;coordinate=62.842718,15.903618&amp;lsp=6489&amp;name=Rotselforsen&amp;map=explore" target="_blank" rel="noopener"><span class="sr-only">04 - </span>Rotselforsen<span class="sr-only"> (opent in nieuw venster)</span></a>
-            <p>Een prachtige waterloop met versnellingen zoals Båthällan. Parkeer je auto en dan is er nog een makkelijk toegankelijke wandeling van ongeveer 300m tot aan de waterloop.</p>
-          </div>
+        <li class="tip-row">
+          <span class="tip-row__img tip-row__img--num" aria-hidden="true">04</span>
+          <div class="tip-row__body"><h4 class="tip-row__title">Rotselforsen</h4><p>Een prachtige waterloop met versnellingen zoals Båthällan. Parkeer je auto en dan is er nog een makkelijk toegankelijke wandeling van ongeveer 300m tot aan de waterloop.</p></div>
+          <a class="btn btn--tertiary btn--sm tip-row__link" href="https://maps.apple.com/place?address=Rotselforsen,%20K%C3%A4larne,%20Sweden&amp;auid=873080072673155590&amp;coordinate=62.842718,15.903618&amp;lsp=6489&amp;name=Rotselforsen&amp;map=explore" target="_blank" rel="noopener">Bekijk op de kaart<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M17 7H7m10 0v10"/></svg><span class="sr-only"> (Rotselforsen, opent in nieuw venster)</span></a>
         </li>
-      </ol>
+        </ol>
+      </div>
     </div>
 
     <!-- Winteractiviteiten -->

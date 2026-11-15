@@ -261,6 +261,13 @@ button { font: inherit; }
 .hero__card { margin-bottom: 72px; }          /* 24px kader + 48px */
 .shrink-hero__card { margin-bottom: 48px; }
 .shrink-hero__card .section__title { margin-bottom: 12px; }
+/* Onze omgeving: wit glas met donkere tekst in plaats van donker glas. Wit op 75% dekking met dezelfde blur:
+   --text (#042221) haalt ook boven het donkerste deel van de foto ruim 4,5:1. Zonder backdrop-filter: 90% wit. */
+.shrink-hero__card { background: rgba(255, 255, 255, .75); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .shrink-hero__card { background: rgba(255, 255, 255, .9); }
+}
+.shrink-hero__card .section__title, .shrink-hero__card p { color: var(--text-primary); }
 @media (max-width: 768px) {
   .hero__card, .shrink-hero__card { width: auto; max-width: none; padding: 24px; }
   .hero__card { margin: 0 32px 40px; }        /* foto-kader 16px + 16px lucht; onderaan 24px kader + 16px */
@@ -283,6 +290,10 @@ main :where(p) { max-width: 46ch; }
 .prose p { font-size: var(--fs-body); line-height: var(--lh-body); }
 .prose p + p { margin-top: 16px; }
 .prose--center { margin: 64px 0 48px; }
+/* Tekst in twee even hoge kolommen (Onze omgeving): de browser verdeelt de tekst zo dat beide kolommen even hoog
+   zijn, ook als een alinea daarvoor over de kolomgrens moet. Een kolom is ±50ch breed, dus geen 46ch-grens nodig. */
+.prose--cols { columns: 2; column-gap: 64px; column-fill: balance; }
+.prose--cols p { max-width: none; }
 .sub-title { font-size: var(--fs-subtitle); line-height: var(--lh-title); font-weight: 600; color: var(--text-primary); }
 .closing-line { margin-top: 48px; font-size: var(--fs-body); line-height: var(--lh-body); font-weight: 500; color: var(--text-secondary); }
 
@@ -407,43 +418,25 @@ main :where(p) { max-width: 46ch; }
 .grid--3 { grid-template-columns: repeat(3, 1fr); }
 
 /* Spots */
-.spots { margin-top: 64px; align-items: start; }
-.card.spot { padding: 0; background: none; border: 0; box-shadow: none; border-radius: 0; }
-.spot .featured-icon { margin-bottom: 16px; }
-.spot__btn { margin-top: 20px; }
+/* Döda fallet en de badplaats: zelfde rijen als "Onze tips" bij de regio's (.tip-list/.tip-row), in één kaart. */
+.card.tip-card { padding: 0; overflow: hidden; }
+.tip-card--spots { margin-top: 64px; }
+/* Beeldvak zonder foto: het icoon in het lichtgroen, zelfde maat en hoeken als een tipfoto. */
+.tip-row__img.tip-row__img--icon { display: flex; align-items: center; justify-content: center; background: var(--brand-50); color: var(--text); }
+.tip-row__img--icon .icon { width: 40px; height: 40px; stroke-width: 1.5; }
+/* Beeldvak met een nummer (bezienswaardigheden): zelfde lichtgroen vak, nummer groot in Fraunces. */
+.tip-row__img.tip-row__img--num { display: flex; align-items: center; justify-content: center; background: var(--brand-50); color: var(--text);
+  font-family: var(--font-title); font-weight: 700; font-size: var(--display-md); line-height: 1; font-variant-numeric: tabular-nums; }
+/* Meer dan één knop in een tiprij: onder elkaar, even breed (mobiel: naast elkaar, zie verder). */
+.tip-row__actions { display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
+@media (max-width: 768px) {
+  .tip-row__actions { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+}
 
-/* Sights */
-.sights {
-  margin-top: 64px; display: grid; grid-template-columns: 5fr 7fr; gap: 64px;
-  padding: 48px; border-radius: var(--radius-container);
-  background: var(--white); border: 1px solid var(--border-secondary); box-shadow: var(--shadow-lg);
-}
+/* Sights: titel en uitleg (zoals een sectie-intro), daaronder een tip-kaart */
+.sights { margin-top: 64px; }
+.sights__intro { max-width: 46ch; margin-bottom: 32px; }
 .sights__intro p { margin-top: 16px; font-size: var(--fs-body); line-height: var(--lh-body); }
-.sights__list { display: grid; gap: 0; counter-reset: none; }
-.sight { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border-secondary); }
-.sight:first-child { padding-top: 0; }
-.sight:last-child { border-bottom: 0; padding-bottom: 0; }
-.sight__num {
-  flex-shrink: 0; width: 48px; height: 48px; display: grid; place-items: center;
-  border-radius: var(--radius-control); background: var(--brand-50); color: var(--text);
-  font-size: var(--fs-body); font-weight: 600; font-variant-numeric: tabular-nums;
-  border: 1px solid var(--brand-200);
-}
-.sight__title {
-  display: inline-block; margin-bottom: 4px;
-  font-size: var(--fs-title); line-height: var(--lh-title); font-weight: 600; color: var(--text-primary);
-  text-decoration: none; transition: color .15s;
-}
-.sight__title::after {
-  content: ""; display: inline-block; width: 16px; height: 16px; margin-left: 6px; vertical-align: -2px;
-  background: var(--gray-400);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M17 7H7m10 0v10'/%3E%3C/svg%3E") center / contain no-repeat;
-          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M17 7H7m10 0v10'/%3E%3C/svg%3E") center / contain no-repeat;
-  transition: background-color .15s;
-}
-.sight__title:hover { text-decoration: underline; text-underline-offset: 3px; }
-.sight__title:hover::after { background: var(--brand-600); }
-.sight p { font-size: var(--fs-body); line-height: var(--lh-body); }
 
 /* Winter */
 .winter {
@@ -558,7 +551,7 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
 
 /* ------------------------------------------------------------------ Responsive */
 @media (max-width: 1024px) {
-  .split, .split--media-left, .split--media-right, .split--map, .regions, .sights, .winter { grid-template-columns: 1fr; gap: 48px; }
+  .split, .split--media-left, .split--media-right, .split--map, .regions, .winter { grid-template-columns: 1fr; gap: 48px; }
   .winter { gap: 0; }
   .winter__img { order: -1; height: auto; aspect-ratio: 16 / 9; min-height: 0; }
   .split--media-left .split__media { position: relative; top: auto; max-width: 560px; }
@@ -567,7 +560,6 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
   .map-plain img { height: auto; aspect-ratio: 328 / 500; }   /* hele kaart, niet bijgesneden */
   .split--media-right .split__media { order: -1; }
   .grid--3 { grid-template-columns: 1fr 1fr; }
-  .sights { padding: 40px; gap: 32px; }
   .gallery--4 { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
@@ -576,11 +568,13 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
   .hero__title { font-size: var(--display-md); line-height: 1.22; }  /* mobiel: 36px, nog altijd groter dan h2 (30px) */
   .section__header { margin-bottom: 40px; }
   .prose--center { margin: 48px auto 32px; }
+  .prose--cols { columns: 1; }
+  .prose--cols p { max-width: 46ch; }
   .grid--2, .grid--3 { grid-template-columns: 1fr; }
   .gallery--2 { gap: 12px; }
   .map-card { padding: 24px; }
-  .sights { padding: 24px; margin-top: 48px; }
-  .spots { margin-top: 48px; }
+  .sights, .tip-card--spots { margin-top: 48px; }
+  .sights__intro { margin-bottom: 24px; }
   .winter { margin-top: 48px; }
   .winter__content { padding: 40px 24px; }
   .winter__img { min-height: 240px; aspect-ratio: 4 / 3; }
@@ -596,7 +590,7 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
 /* ------------------------------------------------------------------ Titels (laatste, wint van eerdere regels) */
 /* Alle titels: Fraunces 700 */
 .hero__title, .section__title, .sub-title, .eyebrow-title, .card__title,
-.sight__title, .panel__title, .city__name, .farewell .farewell__lead {
+.panel__title, .city__name, .farewell .farewell__lead {
   font-family: var(--font-title); font-weight: 700; letter-spacing: 0;
 }
 .card__title .badge { font-family: var(--font-body); }
@@ -638,25 +632,24 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
 .callout, .note { --link-line: var(--brand-700); }  /* 5,4:1 op --tint */
 .winter { --link-line: rgba(210, 230, 204, .6); }
 
-a.link, .sight__title, .city__list a, .footer__link, .region .card__title {
+a.link, .city__list a, .footer__link, .region .card__title {
   color: var(--text); font-weight: 600;
   text-decoration: underline; text-decoration-color: var(--link-line);
   text-decoration-thickness: 2px; text-underline-offset: 4px;
   transition: text-decoration-color .15s;
 }
-a.link:hover, .sight__title:hover, .city__list a:hover, .footer__link:hover, .region:hover .card__title {
+a.link:hover, .city__list a:hover, .footer__link:hover, .region:hover .card__title {
   color: var(--text); text-decoration-color: currentColor; text-underline-offset: 4px;
 }
 .winter a.link, .winter a.link:hover { color: var(--white); }
 
 /* Pijltje voor links naar een andere website */
-a.link[target="_blank"]::after, .sight__title::after, .city__list a::after, .region .card__title::after {
+a.link[target="_blank"]::after, .city__list a::after, .region .card__title::after {
   content: ""; display: inline-block; width: .8em; height: .8em; margin-left: 4px; vertical-align: 0;
   background: currentColor;
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M17 7H7m10 0v10'/%3E%3C/svg%3E") center / contain no-repeat;
           mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M17 7H7m10 0v10'/%3E%3C/svg%3E") center / contain no-repeat;
 }
-.sight__title:hover::after { background: currentColor; }
 
 /* ------------------------------------------------------------------ Indrukwekkende natuur: kaart + regio's */
 .map-wide { margin: 0; }
@@ -947,8 +940,7 @@ p a.link:hover { background: var(--gray-100); text-decoration: none; }
 .tip-list > .tip-row:first-child { border-top: 0; }
 .region-tips__title { display: flex; align-items: center; gap: 12px; margin: 0;
   font-family: var(--font-title); font-weight: 600; font-size: var(--fs-title); line-height: var(--lh-title); color: var(--text-primary); }
-.region-tips__icon { width: 40px; height: 40px; border: 0; background: var(--brand-50); color: var(--text); }
-.region-tips__icon .icon { width: 20px; height: 20px; }
+.region-tips__icon { border: 0;   /* zelfde maat als het icoon van de regiokaart (48px, icoon 24px) */ background: var(--brand-50); color: var(--text); }
 .tip-list { margin: 0; padding: 0; list-style: none; }
 .tip-row { display: grid; grid-template-columns: 240px minmax(0, 1fr) auto; align-items: center; gap: 24px 40px;
   padding: 24px; border-top: 1px solid var(--border-secondary); }
@@ -957,12 +949,20 @@ p a.link:hover { background: var(--gray-100); text-decoration: none; }
 .tip-row__title { margin: 0 0 4px; font-family: var(--font-title); font-weight: 600; font-size: var(--fs-title); line-height: var(--lh-title); color: var(--text-primary); }
 .tip-row__body p { margin: 0; }
 .tip-row__link .icon { width: 16px; height: 16px; }
+/* Foto vult altijd de volle hoogte van de rij (bijgesneden met object-fit), minstens 160px (= 240px breed in 3:2).
+   Tekst krijgt boven en onder 24px extra (samen met de rijpadding 48px), zodat lange tekst nooit tegen de lijnen kleeft. */
+.tip-row { align-items: stretch; }
+.tip-row__img { align-self: stretch; height: auto; min-height: 160px; aspect-ratio: auto; }
+.tip-row__body { align-self: center; padding: 24px 0; }
+.tip-row > .tip-row__link, .tip-row__actions { align-self: center; }
 @media (max-width: 768px) {
   .region-card__toggle { padding: 20px; }
   .region-tips__about { flex-direction: column; padding: 0 20px 20px; }
   .region-tips__lead { padding: 20px 20px 0; }
   .tip-row { grid-template-columns: minmax(0, 1fr); align-items: start; gap: 16px; padding: 20px; }
-  .tip-row__img { width: 100%; }
+  .tip-row__img { width: 100%; min-height: 0; aspect-ratio: 3 / 2; }   /* mobiel: foto boven de tekst, gewoon 3:2 */
+  .tip-row__body { padding: 0; }
+  .tip-row > .tip-row__link, .tip-row__actions { align-self: start; }
   .tip-row__link { justify-self: start; }
 }
 /* Tertiaire knop: vaste lichtgrijze achtergrond, bij hover iets donkerder */
