@@ -202,24 +202,28 @@ button { font: inherit; }
 /* Scherpstellen bij het laden: start vaag en iets ingezoomd, wordt zacht scherp */
 .js .hero__bg { filter: blur(20px); transform: scale(1.08); transition: filter 2s cubic-bezier(.25, .1, .25, 1), transform 3.2s var(--ease); will-change: filter, transform; }
 .js .hero__bg.is-loaded { filter: blur(0); transform: scale(1); }
+/* Welkomsttekst rechtstreeks op de foto, onderaan links, wit. Een donker verloop (--text, #042221) onderaan
+   houdt de tekst leesbaar op elk deel van het noorderlicht: in de tekstzone minstens 70% dekking (wit haalt > 4,5:1). */
+.hero__media::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to top, rgba(4, 34, 33, .85) 0%, rgba(4, 34, 33, .7) 40%, rgba(4, 34, 33, 0) 75%); }
 .hero__card {
-  align-self: center; justify-self: start;
+  align-self: end; justify-self: start; position: relative;
   width: min(560px, calc(100% - 2 * var(--gutter)));
-  margin: calc(var(--nav-h) + 96px) var(--gutter) 96px; margin-left: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter)));  /* boven: menu + 96px, zodat de zichtbare ruimte boven en onder gelijk is */
-  padding: 48px 80px; display: grid; gap: 12px; justify-items: start;
-  border-radius: var(--radius-media);   /* ligt op de foto: zelfde hoeken als beeld */
-  background: rgba(255, 255, 255, .72);
-  -webkit-backdrop-filter: saturate(180%) blur(8px); backdrop-filter: saturate(180%) blur(8px);
-  box-shadow: none;
-  position: relative;
+  margin: 0 var(--gutter) 72px; margin-left: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter)));   /* onderaan: 24px kader + 48px */
+  display: grid; gap: 12px; justify-items: start; color: var(--white);
 }
 .hero__flag { width: 48px; height: 48px; margin-bottom: 12px; }
 .hero__title {
   font-size: var(--fs-hero); line-height: 1.17; letter-spacing: -0.96px;
-  font-weight: 600; color: var(--text-primary); text-wrap: balance;
+  font-weight: 600; color: var(--white); text-wrap: balance;
 }
-.hero__sub { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--text-tertiary); }
-.hero__translation { color: var(--text); }
+.hero__sub { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--white); }
+.hero__translation { color: var(--white); }
+/* Groeiende welkomstfoto (op elk scherm): de foto start als afgeronde container (ca. 88% schermhoogte, zodat het
+   volgende blok al piept) en groeit bij het scrollen naar de volle breedte; daarna schuift hij onder het menu weg.
+   main.js zet de uitsnede (--hi-*) per scrollpositie. Zonder js: meteen volle breedte. */
+.hero__media { min-height: 88svh;
+  clip-path: inset(var(--hi-t, 0px) var(--hi-x, 0px) var(--hi-b, 0px) var(--hi-x, 0px) round var(--hi-r, 0px)); }
 
 /* ------------------------------------------------------------------ Sections */
 .section { padding-block: 96px; isolation: isolate; overflow: clip; }  /* wolken blijven binnen hun sectie */
@@ -525,12 +529,10 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
   .gallery--4 { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
-  .hero > * { grid-area: auto; }
-  .hero__media { min-height: 0; aspect-ratio: 4 / 3; }
-  .hero__card { width: auto; margin: -48px var(--gutter) 0; padding: 40px 32px; }
   .section { padding-block: 64px; }
   .section__title { font-size: var(--display-sm); line-height: 1.27; letter-spacing: 0; }
   .hero__title { font-size: var(--display-md); line-height: 1.22; }  /* mobiel: 36px, nog altijd groter dan h2 (30px) */
+  .hero__card { width: auto; margin: 0 40px 64px; }   /* mobiel: 16px kader + 24px; onderaan 24px kader + 40px */
   .section__header { margin-bottom: 40px; }
   .prose--center { margin: 48px auto 32px; }
   .grid--2, .grid--3 { grid-template-columns: 1fr; }
@@ -547,7 +549,6 @@ html.js .reveal.is-visible { opacity: 1; transform: none; }
   .farewell { padding: 48px 24px; }
 }
 @media (max-width: 400px) {
-  .hero__card { padding: 40px 24px; }   /* zodat "välkommen!" op 320px past */
   .hero__title { overflow-wrap: break-word; }
 }
 

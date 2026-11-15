@@ -23,6 +23,31 @@
     parallax();
   }
 
+  /* Groeiende welkomstfoto (zoals anthropic.com): start als afgeronde container (88% schermhoogte),
+     groeit tijdens het eerste stuk scrollen naar de volle breedte, schuift daarna onder het menu weg. */
+  const heroMedia = document.querySelector('.hero__media');
+  if (heroMedia) {
+    let tickingGrow = false;
+    const grow = () => {
+      tickingGrow = false;
+      const box = document.querySelector('.site-nav .container') || document.querySelector('.container');
+      const pad = parseFloat(getComputedStyle(box).paddingLeft) || 0;
+      const edge = box.getBoundingClientRect().left + pad;          /* linkerrand van de inhoud */
+      const x0 = Math.max(16, edge - 48);                            /* foto 48px breder dan de inhoud */
+      const navH = document.querySelector('.site-nav')?.offsetHeight || 64;
+      const dist = window.innerHeight * 0.4;                          /* na 40% schermhoogte scrollen: volle breedte */
+      const p = calm.matches ? 0 : Math.min(1, Math.max(0, window.scrollY / dist));
+      const k = 1 - p;
+      heroMedia.style.setProperty('--hi-t', (navH + 24) * k + 'px');
+      heroMedia.style.setProperty('--hi-b', 24 * k + 'px');
+      heroMedia.style.setProperty('--hi-x', x0 * k + 'px');
+      heroMedia.style.setProperty('--hi-r', 24 * k + 'px');
+    };
+    window.addEventListener('scroll', () => { if (!tickingGrow) { tickingGrow = true; requestAnimationFrame(grow); } }, { passive: true });
+    window.addEventListener('resize', grow);
+    grow();
+  }
+
   /* Gradientwolk: willekeurige posities per foto, bij elke paginaload anders */
   document.querySelectorAll('.cloud').forEach((el) => {
     const r = (min, max) => (min + Math.random() * (max - min)).toFixed(0) + '%';
