@@ -215,13 +215,13 @@ button { font: inherit; }
 }
 .hero__sub { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--white); }
 .hero__translation { color: var(--white); }
-/* Welkomstfoto: altijd volle schermbreedte, tot bovenaan onder het (doorschijnende) menu. Ca. 88% schermhoogte,
-   zodat het volgende blok al piept. */
-.hero__media { min-height: 88svh; }
+/* Welkomstfoto: altijd volle schermbreedte, tot bovenaan onder het (doorschijnende) menu. 70% schermhoogte
+   (groeit mee als de tekst meer plaats nodig heeft). */
+.hero__media { min-height: 70svh; }
 
 /* Foto bij Onze omgeving: volle schermbreedte, zonder scrolleffect. Hoogte begrensd (70% schermhoogte,
    tussen 420 en 640px); de foto wordt bijgesneden (object-fit: cover). Titel en eerste alinea in wit glas erop. */
-.section--flush-top { padding-top: 0; }
+.section.section--flush-top { padding-top: 0; }   /* foto sluit direct aan op de vorige sectie (wint van .section, ook op mobiel) */
 .shrink-hero { display: grid; margin-bottom: 64px; }
 .shrink-hero > * { grid-area: 1 / 1; }
 .shrink-hero__media { position: relative; margin: 0; overflow: hidden; height: clamp(420px, 70svh, 640px); background: var(--brand-950); }
