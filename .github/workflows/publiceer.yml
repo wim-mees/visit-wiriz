@@ -5,7 +5,8 @@
 #   gewijzigde bestanden versleuteld (SSH) naar subsites/wiriz.wimmees.com/ gestuurd.
 # - Het schrijft ALLEEN in die map. wimmees.com (WordPress), learning.wimmees.com
 #   en demo.wimmees.com worden nooit aangeraakt.
-# - Het verwijdert niets op de server.
+# - Het verwijdert niets op de server, behalve bestanden die je bij een handmatige run
+#   uitdrukkelijk opgeeft onder "verwijder" (zie onderaan).
 # - Bestaat de map op de server nog niet (subsite nog niet aangemaakt in Combell),
 #   dan stopt het zonder iets te doen.
 #
@@ -26,6 +27,10 @@ on:
         description: "Enkel tonen wat er zou gebeuren, zonder iets op de server te zetten"
         type: boolean
         default: true
+      verwijder:
+        description: "Bestanden om op de server te verwijderen, gescheiden door spaties, relatief tegenover site/ (bv. img/oud.webp). Alleen bestanden die niet meer in site/ staan."
+        type: string
+        default: ""
 
 concurrency:
   group: publiceer-visit-wiriz
@@ -101,3 +106,27 @@ jobs:
           SERVER=$(sshpass -e ssh -o StrictHostKeyChecking=yes -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no \
             "$SSH_USER@$SSH_HOST" "sha256sum '${DOEL}index.html' 2>/dev/null | cut -c1-12" 2>/dev/null | tail -1)
           echo "index.html  server:${SERVER:-ontbreekt}  github:$(sha256sum site/index.html | cut -c1-12)"
+
+      # Verwijderen gebeurt alleen bij een handmatige run met "verwijder" ingevuld, en alleen voor
+      # losse bestanden binnen de map van deze subsite die niet meer in site/ staan.
+      # Proefrit aan: enkel tonen wat er zou verdwijnen.
+      - name: Verwijder opgegeven bestanden op de server
+        if: steps.check.outputs.klaar == 'true' && steps.map.outputs.bestaat == 'true' && github.event_name == 'workflow_dispatch' && inputs.verwijder != ''
+        env:
+          SSHPASS: ${{ secrets.SSH_PASSWORD }}
+          PROEF: ${{ inputs.proefrit }}
+          LIJST: ${{ inputs.verwijder }}
+        run: |
+          SSH="sshpass -e ssh -o StrictHostKeyChecking=yes -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no"
+          for pad in $LIJST; do
+            case "$pad" in
+              /*|*..*|*'*'*|*'?'*|*'['*|*\\*|'') echo "::error::Ongeldig pad, overgeslagen: $pad"; continue ;;
+            esac
+            if ! printf '%s' "$pad" | grep -Eq '^[A-Za-z0-9._/-]+$'; then echo "::error::Ongeldige tekens, overgeslagen: $pad"; continue; fi
+            if [ -e "site/$pad" ]; then echo "::error::$pad staat nog in site/, wordt niet verwijderd"; continue; fi
+            if [ "$PROEF" = "true" ]; then
+              $SSH "$SSH_USER@$SSH_HOST" "if [ -f '${DOEL}$pad' ]; then echo 'Proefrit, zou verwijderen: $pad'; else echo 'Niet gevonden op de server: $pad'; fi"
+            else
+              $SSH "$SSH_USER@$SSH_HOST" "if [ -f '${DOEL}$pad' ]; then rm -f -- '${DOEL}$pad' && echo 'Verwijderd: $pad'; else echo 'Niet gevonden op de server: $pad'; fi"
+            fi
+          done

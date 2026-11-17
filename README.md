@@ -13,7 +13,8 @@ Gids voor wie Wim en Iris komt bezoeken in Zweden. Live op **https://wiriz.wimme
 ## Publiceren
 
 - Elke wijziging in `site/` op de tak `main` staat binnen een minuut online (`subsites/wiriz.wimmees.com/`).
-- Er wordt nooit iets op de server verwijderd. Andere sites op de hosting worden niet aangeraakt.
+- Er wordt nooit automatisch iets op de server verwijderd. Andere sites op de hosting worden niet aangeraakt.
+- Een oud bestand weghalen (alleen na akkoord van Wim): **Actions > Publiceer Visit WiRiZ > Run workflow**, vul bij "verwijder" de paden in (relatief tegenover `site/`, bv. `img/oud.webp`) en zet "proefrit" uit. Alleen losse bestanden die niet meer in `site/` staan; met proefrit aan zie je eerst wat er zou verdwijnen.
 - Handmatig starten kan onder **Actions > Publiceer Visit WiRiZ > Run workflow**. Standaard staat "proefrit" aan: dan zie je alleen wat er zou veranderen.
 - Nodig: het geheim `SSH_PASSWORD` (Settings > Secrets and variables > Actions), hetzelfde als in `wim-mees/elearnings`.
 - Bestaat de subsite nog niet in Combell, dan stopt de publicatie zonder iets te doen.
