@@ -11,6 +11,7 @@
 #   dan stopt het zonder iets te doen.
 #
 # Geheim in GitHub (Settings > Secrets and variables > Actions):
+#   SSH_KEY       de SSH-sleutel voor Combell (veiligst; wordt gebruikt als hij er is)
 #   SSH_PASSWORD  hetzelfde wachtwoord als in de opslagplaats wim-mees/elearnings
 #                 (het wachtwoord van de Combell-hosting).
 
@@ -48,14 +49,15 @@ jobs:
   publiceer:
     runs-on: ubuntu-latest
     steps:
-      - name: Controleer of het SSH-wachtwoord ingesteld is
+      - name: Controleer of de SSH-sleutel of het wachtwoord ingesteld is
         id: check
         env:
           WACHTWOORD: ${{ secrets.SSH_PASSWORD }}
+          SLEUTEL: ${{ secrets.SSH_KEY }}
         run: |
-          if [ -z "$WACHTWOORD" ]; then
+          if [ -z "$WACHTWOORD" ] && [ -z "$SLEUTEL" ]; then
             echo "klaar=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::Nog geen SSH_PASSWORD ingesteld. Er is niets gepubliceerd."
+            echo "::notice::Nog geen SSH_KEY of SSH_PASSWORD ingesteld. Er is niets gepubliceerd."
           else
             echo "klaar=true" >> "$GITHUB_OUTPUT"
           fi
@@ -66,9 +68,21 @@ jobs:
 
       - name: Bereid de beveiligde verbinding voor
         if: steps.check.outputs.klaar == 'true'
+        env:
+          SLEUTEL: ${{ secrets.SSH_KEY }}
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq sshpass > /dev/null
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          if [ -n "$SLEUTEL" ]; then
+            # Inloggen met de SSH-sleutel (veiliger dan het wachtwoord).
+            printf '%s\n' "$SLEUTEL" > ~/.ssh/combell && chmod 600 ~/.ssh/combell
+            echo "VERBIND=ssh -i $HOME/.ssh/combell -o IdentitiesOnly=yes -o PasswordAuthentication=no -o KbdInteractiveAuthentication=no" >> "$GITHUB_ENV"
+            echo "Verbinding met de SSH-sleutel."
+          else
+            # Nog geen sleutel: inloggen met het wachtwoord.
+            sudo apt-get update -qq && sudo apt-get install -y -qq sshpass > /dev/null
+            echo "VERBIND=sshpass -e ssh -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no" >> "$GITHUB_ENV"
+            echo "::warning::Verbinding met het wachtwoord. Voeg het geheim SSH_KEY toe."
+          fi
           # Vastgelegde sleutel van de Combell-server: zo praten we zeker met de echte server.
           cp .github/known_hosts ~/.ssh/known_hosts
 
@@ -78,7 +92,7 @@ jobs:
         env:
           SSHPASS: ${{ secrets.SSH_PASSWORD }}
         run: |
-          if sshpass -e ssh -o StrictHostKeyChecking=yes -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no \
+          if $VERBIND -o StrictHostKeyChecking=yes \
             "$SSH_USER@$SSH_HOST" "test -d '$DOEL'"; then
             echo "bestaat=true" >> "$GITHUB_OUTPUT"
             echo "Map gevonden: $DOEL"
@@ -100,10 +114,10 @@ jobs:
             OPTIES="$OPTIES --dry-run"
           fi
           rsync $OPTIES \
-            -e "sshpass -e ssh -o StrictHostKeyChecking=yes -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no" \
+            -e "$VERBIND -o StrictHostKeyChecking=yes" \
             ./site/ "$SSH_USER@$SSH_HOST:$DOEL"
           echo "--- Vingerafdruk: links op de server, rechts in GitHub ---"
-          SERVER=$(sshpass -e ssh -o StrictHostKeyChecking=yes -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no \
+          SERVER=$($VERBIND -o StrictHostKeyChecking=yes \
             "$SSH_USER@$SSH_HOST" "sha256sum '${DOEL}index.html' 2>/dev/null | cut -c1-12" 2>/dev/null | tail -1)
           echo "index.html  server:${SERVER:-ontbreekt}  github:$(sha256sum site/index.html | cut -c1-12)"
 
@@ -117,7 +131,7 @@ jobs:
           PROEF: ${{ inputs.proefrit }}
           LIJST: ${{ inputs.verwijder }}
         run: |
-          SSH="sshpass -e ssh -o StrictHostKeyChecking=yes -o PreferredAuthentications=keyboard-interactive,password -o PubkeyAuthentication=no"
+          SSH="$VERBIND -o StrictHostKeyChecking=yes"
           for pad in $LIJST; do
             case "$pad" in
               /*|*..*|*'*'*|*'?'*|*'['*|*\\*|'') echo "::error::Ongeldig pad, overgeslagen: $pad"; continue ;;
